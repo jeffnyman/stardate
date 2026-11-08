@@ -1,0 +1,95 @@
+#nullable enable
+Stardate.Core.CodePage437
+Stardate.Core.Machine
+Stardate.Core.Machine.CgaFont.get -> bool
+Stardate.Core.Machine.CgaFont.set -> void
+Stardate.Core.Machine.Cpu.get -> Stardate.Core.Processors.Intel386!
+Stardate.Core.Machine.DisplayHeight.get -> int
+Stardate.Core.Machine.DisplayWidth.get -> int
+Stardate.Core.Machine.ExitCode.get -> int
+Stardate.Core.Machine.Exited.get -> bool
+Stardate.Core.Machine.In(ushort port) -> byte
+Stardate.Core.Machine.InstructionsPerSecond.get -> int
+Stardate.Core.Machine.InstructionsPerSecond.set -> void
+Stardate.Core.Machine.Load(string! program, string! arguments = "") -> void
+Stardate.Core.Machine.LoadState(System.IO.Stream! stream) -> void
+Stardate.Core.Machine.Log.get -> System.Action<string!>?
+Stardate.Core.Machine.Log.set -> void
+Stardate.Core.Machine.Machine(string! gameFolder, string! saveFolder) -> void
+Stardate.Core.Machine.Out(ushort port, byte value) -> void
+Stardate.Core.Machine.PressKey(byte scanCode, bool extended = false) -> void
+Stardate.Core.Machine.Read(uint address) -> byte
+Stardate.Core.Machine.ReleaseKey(byte scanCode, bool extended = false) -> void
+Stardate.Core.Machine.ReleaseKeys() -> void
+Stardate.Core.Machine.Render(System.Span<uint> pixels) -> void
+Stardate.Core.Machine.Run(long instructions) -> bool
+Stardate.Core.Machine.SaveState(System.IO.Stream! stream) -> void
+Stardate.Core.Machine.ScreenText() -> System.Collections.Generic.IReadOnlyList<string!>!
+Stardate.Core.Machine.Time.get -> System.TimeSpan
+Stardate.Core.Machine.VideoMode.get -> int
+Stardate.Core.Machine.Write(uint address, byte value) -> void
+Stardate.Core.Processors.ICpuBus
+Stardate.Core.Processors.ICpuBus.In(ushort port) -> byte
+Stardate.Core.Processors.ICpuBus.Out(ushort port, byte value) -> void
+Stardate.Core.Processors.ICpuBus.Read(uint address) -> byte
+Stardate.Core.Processors.ICpuBus.Write(uint address, byte value) -> void
+Stardate.Core.Processors.Intel386
+Stardate.Core.Processors.Intel386.Cr0.get -> uint
+Stardate.Core.Processors.Intel386.Cr0.set -> void
+Stardate.Core.Processors.Intel386.Cr3.get -> uint
+Stardate.Core.Processors.Intel386.Cr3.set -> void
+Stardate.Core.Processors.Intel386.Cs.get -> ushort
+Stardate.Core.Processors.Intel386.Cs.set -> void
+Stardate.Core.Processors.Intel386.Dr6.get -> uint
+Stardate.Core.Processors.Intel386.Dr6.set -> void
+Stardate.Core.Processors.Intel386.Dr7.get -> uint
+Stardate.Core.Processors.Intel386.Dr7.set -> void
+Stardate.Core.Processors.Intel386.Ds.get -> ushort
+Stardate.Core.Processors.Intel386.Ds.set -> void
+Stardate.Core.Processors.Intel386.Eax.get -> uint
+Stardate.Core.Processors.Intel386.Eax.set -> void
+Stardate.Core.Processors.Intel386.Ebp.get -> uint
+Stardate.Core.Processors.Intel386.Ebp.set -> void
+Stardate.Core.Processors.Intel386.Ebx.get -> uint
+Stardate.Core.Processors.Intel386.Ebx.set -> void
+Stardate.Core.Processors.Intel386.Ecx.get -> uint
+Stardate.Core.Processors.Intel386.Ecx.set -> void
+Stardate.Core.Processors.Intel386.Edi.get -> uint
+Stardate.Core.Processors.Intel386.Edi.set -> void
+Stardate.Core.Processors.Intel386.Edx.get -> uint
+Stardate.Core.Processors.Intel386.Edx.set -> void
+Stardate.Core.Processors.Intel386.Eflags.get -> uint
+Stardate.Core.Processors.Intel386.Eflags.set -> void
+Stardate.Core.Processors.Intel386.Eip.get -> uint
+Stardate.Core.Processors.Intel386.Eip.set -> void
+Stardate.Core.Processors.Intel386.Es.get -> ushort
+Stardate.Core.Processors.Intel386.Es.set -> void
+Stardate.Core.Processors.Intel386.Esi.get -> uint
+Stardate.Core.Processors.Intel386.Esi.set -> void
+Stardate.Core.Processors.Intel386.Esp.get -> uint
+Stardate.Core.Processors.Intel386.Esp.set -> void
+Stardate.Core.Processors.Intel386.Fs.get -> ushort
+Stardate.Core.Processors.Intel386.Fs.set -> void
+Stardate.Core.Processors.Intel386.Gs.get -> ushort
+Stardate.Core.Processors.Intel386.Gs.set -> void
+Stardate.Core.Processors.Intel386.Halted.get -> bool
+Stardate.Core.Processors.Intel386.Halted.set -> void
+Stardate.Core.Processors.Intel386.HostCall.get -> System.Action<byte>?
+Stardate.Core.Processors.Intel386.HostCall.set -> void
+Stardate.Core.Processors.Intel386.Instructions.get -> long
+Stardate.Core.Processors.Intel386.Intel386(Stardate.Core.Processors.ICpuBus! bus) -> void
+Stardate.Core.Processors.Intel386.Interrupt(int vector) -> void
+Stardate.Core.Processors.Intel386.InterruptsEnabled.get -> bool
+Stardate.Core.Processors.Intel386.ProtectedMode.get -> bool
+Stardate.Core.Processors.Intel386.Ss.get -> ushort
+Stardate.Core.Processors.Intel386.Ss.set -> void
+Stardate.Core.Processors.Intel386.Step() -> void
+Stardate.Core.ScanCodes
+Stardate.Core.Screenshot
+static Stardate.Core.CodePage437.ToChar(byte value) -> char
+static Stardate.Core.ScanCodes.TryFromUsb(int usage, out byte scanCode, out bool extended) -> bool
+static Stardate.Core.Screenshot.WritePng(Stardate.Core.Machine! machine, string! path) -> void
+static Stardate.Core.Screenshot.WritePng(Stardate.Core.Machine! machine, System.IO.Stream! stream) -> void
+Stardate.Core.Machine.ReadSamples(System.Span<short> samples) -> int
+Stardate.Core.Machine.SkipSamples() -> void
+const Stardate.Core.Machine.SampleRate = 44100 -> int

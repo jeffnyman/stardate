@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>stardate</AssemblyName>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <!-- SDL3 ships native libraries for every platform; a desktop player does not need the Android
+       and iOS ones, which are most of the package -->
+  <Target Name="StardateTrimMobileNatives" AfterTargets="ComputeResolvedFilesToPublishList">
+    <ItemGroup>
+      <ResolvedFileToPublish Remove="@(ResolvedFileToPublish)" Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('%(ResolvedFileToPublish.RelativePath)', '^runtimes[\/](android|ios)'))" />
+    </ItemGroup>
+  </Target>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Stardate.Player.Tests" />
+    <ProjectReference Include="..\Stardate.Core\Stardate.Core.csproj" />
+    <PackageReference Include="ppy.SDL3-CS" />
+  </ItemGroup>
+
+  <!-- the games the repository includes, beside the player, where it plays them from:
+       games/stfc, games/stka and games/stpp, and their notice, games/NOTICE.md, which goes with
+       them into the downloads -->
+  <ItemGroup>
+    <None Include="..\..\games\**\*" LinkBase="games" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Visible="false" />
+  </ItemGroup>
+</Project>

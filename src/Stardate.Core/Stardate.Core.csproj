@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Description>A DOS PC emulator core, built to play Simon &amp; Schuster's Star Trek interactive fiction rather than to be a whole PC: an x86 CPU, a color graphics adapter, the timer and interrupt hardware, and DOS answered directly in C#, with no user interface of its own.</Description>
+    <!-- optimized in Debug too: the CPU runs millions of instructions a second -->
+    <Optimize>true</Optimize>
+    <!-- every public member is documented: a missing comment fails the build -->
+    <NoWarn>$(NoWarn.Replace('CS1591', ''))</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Stardate.Core.Tests" />
+    <!-- the PC's character set as the IBM ROM fonts drew it, from DOSBox (GPL-2.0-or-later) -->
+    <EmbeddedResource Include="Fonts\*.bin" LogicalName="Fonts/%(Filename)%(Extension)" />
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

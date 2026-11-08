@@ -1,0 +1,14 @@
+This game requires DOS memory at 0FC0:0000h up to 3000:0000h to be free,
+because it uses absolute addressing at some points. I have no time to search 
+for all the fixed code so you need to have enough free DOS memory or it will 
+not start at all. To play the game run STARTREK.COM, not ST.COM as you would
+with the real game.
+
+WARNING: 
+--------
+
+To save/load ALWAYS select DRIVE B. The driver will redirect all access to 
+the file SAVE.DAT. If you select drive A, the driver will use STPP.DAT
+and the game will either crash (load) or overwrite the game data (save).
+
+-Mok <mokmok@usa.net>

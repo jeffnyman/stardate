@@ -1,0 +1,369 @@
+
+
+STAR TREK: THE KOBAYASHI ALTERNATIVE CONDENSED INSTRUCTIONS
+
+
+THE KOBAYASHI ALTERNATIVE differs in several ways from other simulations
+that you may have used:
+
+1. The simulation is completely open-ended. You must decide where to lead
+   your crew in the search for Sulu. All of the pieces of the puzzle are
+   there, and your job is to put the pieces together to accomplish the
+   mission and optimize your score. Therefore, plan your strategy well!
+
+2. All of the commands you need are included in these instructions. You
+   are Captain James T. Kirk, and the commands listed in "Communicating
+   With the Crew" are all of the phrases you will need to complete the
+   mission. Use the phrases in the most efficient way in any given situ-
+   ation.
+
+3. Movement on planets and on the Enterprise is accomplished by using the
+   arrow keys (north, south, east, west, forward/back, etc.). Anything you
+   type into the "Kirk" window is interpreted as speech.
+
+4. Actions are accomplished by using the Function keys. A list of these is
+   included, and can be displayed on-screen by pressing the Help key(s).
+   You do not tell yourself to look, shoot, etc.; you simply press a key
+   to accomplish the action.
+
+5. Since the game is open-ended, you can choose to play out different
+   scenarios each time you play. You can explore different star systems
+   and planets in a different order each time.
+
+
+                  COMMUNICATING WITH THE CREW
+
+The crew of the Enterprise is your primary resource, and you communicate with
+them by typing commands or questions into the "Kirk" window. Once you press
+Enter or Return, you will receive a response from a crew member. Make sure
+that your statements are properly formulated.
+
+To address a member of the crew, precede the statement with the crew member's
+name. Example: Spock, ahead Warp Factor 5 (punctuation is optional). Once you
+address a crew member, all further statements will be assumed to be to that
+crew member until you specify another crew member.
+
+To address a crew member that is not present, use your communicator or the
+ship's intercom. Just say "Kirk to (name)". They will respond. To end the
+communication, say "Kirk out", or address someone else.
+
+                  VERBAL COMMANDS AND QUERIES
+
+COMMANDS                           EXAMPLES
+
+Navigation
+-------------------------------------------------------------------------
+chart (set or plot) a course       Chekov, set a course for Orna
+for (to)
+
+warp (factor) (0-8)                Warp factor 5
+
+increase/decrease warp speed       Decrease warp speed
+
+orbit the third (3rd) planet       Orbit the third planet
+
+
+Sensors
+-----------------------------------------------------------------------
+scan the planet                    Scan the planet
+
+long range scan                    long range scan      
+
+closeup of the planet              closeup of the planet
+
+system scan                        system scan
+
+scan for life (readings)           scan for life
+
+
+Communications
+-----------------------------------------------------------------------
+Kirk to Enterprise (or any         Kirk to Avoca
+crew member)
+
+
+Weapons
+-----------------------------------------------------------------------
+lock phasers (torpedoes) on        Lock torpedoes on the ornacraft
+(name of target)
+
+set phasers on (to) full           Set phasers to full power
+(maximum) (power)
+
+fire phasers (torpedoes)           Fire phasers
+
+shields (screens) up               Shields up
+
+Raise/lower screens (shields)      Raise the shields
+
+
+Transporters
+-----------------------------------------------------------------------
+set coordinates (coords) at        Set coords at 5000.5000
+(setting)
+
+energize                           energize
+
+beam me (us, or any objects)       Beam us up
+down/up
+
+
+Turbolift
+-----------------------------------------------------------------------
+deck (1 - 23)                      Deck 7
+
+Engineering (or any section        Transporter
+on the ship)
+
+
+Computer
+-----------------------------------------------------------------------
+computer data (any planet          Computer data Orna
+or entity)
+
+
+Other Commands
+----------------------------------------------------------------------
+analyze                            Spock, analyze the box
+
+analysis                           Spock, results
+
+tell me about (object or           Spock, tell me about the Ornae
+being)
+
+fan out                            fan out
+
+regroup                            regroup
+
+
+
+To use the Transporter, you must be in the Transporter room. Address the
+transporter operator (usually Renner) to beam down. Remember, you must
+say "Beam us down" to include the landing party. If you say "Beam me down",
+only Kirk will beam down.
+
+On the surface of a planet, use the arrow keys to move about. Use your
+tricorder frequently and use the LOOK and EXAMINE keys. Your location is
+indicated by the planet surface coordinates.
+
+Use the command "Fan out" so that the landing party can cover the most
+ground. Use your communicator to keep in contact. You can also tell the
+members of the landing party to go to specific coordinates. To get the
+landing party back together, use the "Regroup" command.
+
+
+FUNCTION KEYS:
+
+HELP              F1
+INVENTORY         F2
+GIVE              F3
+TAKE              F4
+USE               F5
+SHOOT             F6
+EXAMINE           F7
+LOOK              F8
+DROP              F9
+UTILITIES         F10
+--------------------------------------------------------------------------
+
+                      
+
+                      HINTS & HELPS:
+
+ORNA
+
+Coordinates: Valley    8000.7000
+             Tunnel    7650.8150
+             City Cave 7500.8800
+
+Malakiyy     1. Transmitter is north of large crater
+             2. Transmitter can be analyzed
+             3. Examine the ship
+             4. Communicator will not function near the ship.
+
+Craters:     9550.3425, 9500.2400, 8675.2850
+Transmitter area:  9600.2800
+-------------------------------------------------------------------------
+ANDORGHA
+             1. Orbit planet 6
+             2. Helium atmosphere requires cold gear
+             3. Installation is to the east of large mountain
+             4. Status report from ship: phasers are still operative
+             5. Phasers can still be locked onto the coordinates of
+                the installation.
+
+Large mountain & installation:     7600.2500
+East/West mountain:                7500.3000
+Large Island:                      7000.3000
+-------------------------------------------------------------------------
+HASTORANG
+             1. Dragon cave is north of beam point
+             2. The dragon speaks the truth
+             3. To free the Princess, try using the phaser.
+             4. Spell that disabled the communicator is broken when
+                you cross the drawbridge
+             5. Question the wizard
+
+Dragon cave:         5000.15200
+Dungeon:             11300.4900
+Castle:              11200.4807
+Drawbridge:          10875.4805
+Enchanted Forest:    4890.16610
+-------------------------------------------------------------------------
+ACHIR
+
+             1. Dress properly before going out
+             2. Have appropriate crew member analyze the sign
+             3. Talk to the aliens
+             4. The Tshhath has the right number
+             5. Scan the planet from the ship
+
+Wind Tunnel: 12500.4500  -or-  12500.13500
+--------------------------------------------------------------------------
+NIAU
+
+             1. Speak softly and carry no sticks
+             2. Talk to Lahre and Niauite
+             3. Try the museum at 13500.13500
+             4. Examine the bones
+
+Den City:        14100.12200
+Large Platform:  14100.11200
+Grassy Knoll:    14100.11100
+--------------------------------------------------------------------------
+JAUZAH
+
+             1. Planet 4 cries for help
+             2. Canyon stretches south to coord. 5500
+             3. You won't need a second opinion if Doctor is there
+             4. Ask about the clay
+             5. Have Spock mindmeld
+
+Strip-mining area:        5100.2355
+Canyon:                   7250.2495
+Toxic Waste Dump:         1620.3902
+-------------------------------------------------------------------------
+KLUSOS
+
+             1. Space suit needed in this temperature
+             2. Calls for short, stout, naked crew member (Naraht)
+             3. Keep your short friend with you
+             4. Mines to the north (17000.14000) offer the most promise
+             5. Talk to the miner
+             6. A short analysis of the substance is in order
+
+Prison:      4102.17750
+Mining Pits: 17000.14200
+------------------------------------------------------------------------
+KHUT
+
+             1. Wear your space suit
+             2. Follow the seashore east, then north
+             3. Try the small city
+             4. The Khutis don't have cooties
+             5. Listen to them, but have phaser ready
+
+Seashore south:   6000.14000
+City:            12500.5000
+------------------------------------------------------------------------
+TSHIO
+
+             1. Village is north of 14000.13000
+             2. You can communicate with Spock
+             3. His mind is like theirs
+             4. Transporter works when Spock is free
+             5. You can beam to energy source at 50.9000
+             6. Try a "cube" scan
+             7. Ask about the cube
+
+Temple ruins:      4000.4100
+Trail:            12500.2750
+Narrow path:      10750.3050
+-----------------------------------------------------------------------
+ASCELLA
+
+             1. Talking to goats yields what you would expect
+             2. Whales are no better than goats
+             3. Scan the ship in orbit
+             4. The message can be analyzed
+
+Small rocky island:    5000.5000
+Whale area:            5000.6000
+-----------------------------------------------------------------------
+HWOUNT
+
+             1. Orbit planet 2
+             2. Ask the right questions
+             3. Keep your hands to yourself
+
+Coliseum:  13750.13250
+------------------------------------------------------------------------
+BHRF
+
+             1. Bhrf is #2 
+             2. Plaza has many delights, bu save the classics for dessert
+             3. Get Scarlett & Rhett from the Enterprise
+             4. Keep Bhrf close by and talk to it.
+
+Plaza: 13000.3750
+--------------------------------------------------------------------------
+PROTOSTAR
+
+             1. Spock's comment is vital
+             2. Spock can contact the protostar
+             3. Look in Engineering for the essential substance
+             4. Renner is the key to success
+--------------------------------------------------------------------------
+RIRD
+
+Battle nearby:  1. Patience is the better part of valor
+                2. Listen to Bhrf
+                3. There is only one Klingon vessel
+                4. Lock phasers onto correct target
+                5. You need full torpedo power to destroy the Klingon
+
+Rird itself:    1. Rird is the 3rd planet
+                2. You need heat gear when you beam down
+                3. To save the alien, beam it up
+                4. The device can be analyzed
+                5. Scotty can install the device on the Enterprise
+                6. Turn the device on
+                7. The device only works for a short time
+
+Crash site: 7105.7410
+--------------------------------------------------------------------------
+
+MISCELLANEOUS:
+
+BHRF          14926.27312.25008        13100.3500
+ASCELLA        3060.28172.25879        (Heinlein here - also Klingons)
+KLINGONS      11432.15058.9077
+BUOY          11000.24600.24900
+
+ACHIR         12500.13500  12500.4500 Transport Tunnels
+               6750.11400  Harapha
+               6700.15100  Asuiar
+               7500.12000  Qqkq
+               6560.12500  Thshhath
+
+RIRD           2567.23762.24312
+                     5300.8000  Facility
+                     7105.7410  Crash
+
+BUOY           8572.27041.27324 (??)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,96 @@
+# Builds the downloads: Stardate as one program for each platform, beside the included games
+# (games/, by Electronic Arts' permission; see NOTICE.md) and the notices. A tag such as v0.1.0
+# makes a GitHub release of them; run by hand, it only builds them, as the run's artifacts, to try
+# before tagging.
+name: Publish
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  download:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, rid: win-x64 }
+          - { os: ubuntu-latest, rid: linux-x64 }
+          - { os: macos-latest, rid: osx-arm64 }
+          - { os: macos-latest, rid: osx-x64 }
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      # the version is the tag's, without its v; run by hand, it's the one in Directory.Build.props
+      - name: Version
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            echo "VERSION_ARGS=-p:Version=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+            echo "NAME=stardate-${GITHUB_REF_NAME#v}-${{ matrix.rid }}" >> "$GITHUB_ENV"
+          else
+            echo "VERSION_ARGS=" >> "$GITHUB_ENV"
+            echo "NAME=stardate-${{ matrix.rid }}" >> "$GITHUB_ENV"
+          fi
+
+      # one program with the .NET runtime and SDL inside it, compressed; not trimmed, because save
+      # states reach every field by reflection. The build puts games/ beside it.
+      - name: Publish
+        run: >
+          dotnet publish src/Stardate.Player -c Release -r ${{ matrix.rid }} --self-contained
+          -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:GenerateDocumentationFile=false
+          $VERSION_ARGS -o "out/$NAME"
+
+      - name: Notices
+        run: cp README.md NOTICE.md LICENSE "out/$NAME/"
+
+      # a zip for Windows; for Linux and macOS a tar.gz, which keeps the program executable
+      - name: Archive
+        run: |
+          cd out
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
+            pwsh -Command "Compress-Archive -Path '$NAME' -DestinationPath '$NAME.zip'"
+          else
+            tar -czf "$NAME.tar.gz" "$NAME"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.NAME }}
+          path: out/${{ env.NAME }}.*
+          if-no-files-found: error
+
+  release:
+    if: github.ref_type == 'tag'
+    needs: download
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: downloads
+          merge-multiple: true
+
+      # a version with a hyphen, such as 0.1.0-alpha, is a prerelease
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease=""
+          [[ "$GITHUB_REF_NAME" == *-* ]] && prerelease="--prerelease"
+          gh release create "$GITHUB_REF_NAME" downloads/* $prerelease \
+            --title "Stardate ${GITHUB_REF_NAME#v}" \
+            --notes-file .github/release-notes.md

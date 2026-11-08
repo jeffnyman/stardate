@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Stardate.Core/Stardate.Core.csproj" />
+    <Project Path="src/Stardate.Player/Stardate.Player.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Stardate.Core.Tests/Stardate.Core.Tests.csproj" />
+    <Project Path="tests/Stardate.Player.Tests/Stardate.Player.Tests.csproj" />
+  </Folder>
+</Solution>
