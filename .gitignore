@@ -18,3 +18,4 @@ _testdata/
 *.EXE
 *.COM
 !games/**
+!src/Stardate.Core/Fonts/*.bin
