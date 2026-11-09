@@ -24,16 +24,18 @@ internal sealed record Game(string Name, string Title, string Program, int Cycle
 /// game's own <c>ST.COM</c> isn't a DOS program, and is never run by itself.
 /// </para>
 /// <para>
-/// All three run at 1,000 cycles, as their DOSBox setups did. A DOSBox "cycle" is an
-/// instruction, and its count is per millisecond, so 1,000 cycles is the machine's million
-/// instructions a second: a few times the 8088 they were written for, which they don't mind, as
-/// they wait for the keyboard rather than the clock.
+/// All three run at 240 cycles, the speed of the IBM PC's 8088 at 4.77 MHz they were written
+/// for. A DOSBox "cycle" is an instruction, and its count is per millisecond, so 240 cycles is
+/// 240,000 instructions a second. They time their pauses by loops that count, not by the clock:
+/// <i>The Kobayashi Alternative</i>'s credits each stay up for so many passes of an empty loop
+/// of 20,000, about a third of a second each on the 8088. Their DOSBox setups ran them at 1,000
+/// cycles, at which those pauses go by four times too fast to read.
 /// </para>
 /// </remarks>
 internal static class Games
 {
     /// <summary>The speed all three play at, in DOSBox's cycles.</summary>
-    public const int Cycles = 1000;
+    public const int Cycles = 240;
 
     public static readonly Game FirstContact = new("stfc", "Star Trek: First Contact", "ST.EXE", Cycles);
     public static readonly Game KobayashiAlternative = new("stka", "Star Trek: The Kobayashi Alternative", "ST.EXE", Cycles);

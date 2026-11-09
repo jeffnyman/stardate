@@ -152,13 +152,25 @@ public sealed partial class Machine : ICpuBus
     /// <summary>
     /// How fast the machine runs, in instructions per second. Time in the machine (the timer's
     /// count, and so the game's pace) follows the instructions run, so this is the emulated
-    /// processor's speed. The IBM PC's 8088, at 4.77 MHz, ran roughly 300,000 a second;
-    /// DOSBox's "cycles" setting is roughly this in thousands.
+    /// processor's speed. It's 240,000 by default, the IBM PC's 8088 at 4.77 MHz, for which the
+    /// games were written and by which they time their pauses, in loops that count; DOSBox's
+    /// "cycles" setting is this in thousands.
     /// </summary>
-    public int InstructionsPerSecond { get; set; } = 1_000_000;
+    public int InstructionsPerSecond { get; set; } = 240_000;
 
     /// <summary>The emulated time since the machine started.</summary>
     public TimeSpan Time => TimeSpan.FromSeconds((double)_time / InstructionsPerSecond);
+
+    // the date and time the machine started at, the host's, from which its clock runs
+    private readonly DateTime _started = DateTime.Now;
+
+    /// <summary>
+    /// The date and time in the machine, which the BIOS and DOS report: the host's when it
+    /// started, and the machine's time since. It keeps pace with the instructions, as the
+    /// tick count does, so a game that times itself by the clock sees the same time pass as
+    /// one that counts, at any speed, and in the tests, which run faster than the host's clock.
+    /// </summary>
+    internal DateTime Clock => _started + Time;
 
     private double Seconds => (double)_time / InstructionsPerSecond;
 

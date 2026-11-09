@@ -83,7 +83,7 @@ public sealed class ProfileTests : IDisposable
         var game = Games.Named(name)!;
         Assert.Equal(title, game.Title);
         Assert.Equal(program, game.Program);
-        Assert.Equal(1000, game.Cycles);
+        Assert.Equal(240, game.Cycles);
         Assert.Null(Games.Named("wc1"));
         Assert.Equal("stfc, stka or stpp", Games.Names);
     }

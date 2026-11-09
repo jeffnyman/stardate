@@ -101,7 +101,7 @@ internal static class Program
                     saves = Next("--saves", "a folder");
                     break;
                 case "--cycles":
-                    given.Cycles = Number("--cycles", "instructions a millisecond, as in 1000", 100, 1_000_000);
+                    given.Cycles = Number("--cycles", "instructions a millisecond, as in 240", 100, 1_000_000);
                     break;
                 case "--scale":
                     given.Scale = Number("--scale", "a scale from 1 to 4", 1, 4);
@@ -345,8 +345,8 @@ internal static class Program
               --saves <folder>   where the game's writes go, saved games included (by default a
                                  folder of its own in the user's application data); the game's
                                  folder is never written
-              --cycles <n>       instructions a millisecond, as DOSBox counts cycles: 1000 by
-                                 default, as the games' DOSBox setups ran them
+              --cycles <n>       instructions a millisecond, as DOSBox counts cycles: 240 by
+                                 default, the 4.77 MHz 8088 the games were written for
               --scale <n>        the window's first size, n times the 640-wide picture (2), made
                                  smaller if the screen hasn't room
               --fullscreen       start in full screen (--windowed: in a window)

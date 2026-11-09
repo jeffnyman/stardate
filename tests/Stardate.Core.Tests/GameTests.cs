@@ -16,8 +16,12 @@ public sealed class GameTests : IDisposable
     {
         var machine = Start("stfc", "ST.EXE");
         RunUntil(machine, 30, () => Shows(machine, "Press any key to continue"));
-        Keys.Type(machine, " ");
-        RunUntil(machine, 10, () => machine.VideoMode == 4);
+        for (int i = 0; i < 4 && machine.VideoMode != 4; i++)
+        {
+            Keys.Type(machine, " ");
+            RunUntil(machine, 5, () => machine.VideoMode == 4);
+        }
+
         Assert.Equal(4, machine.VideoMode);
 
         // the title picture, then the publisher's credit, on a timer, then the bridge

@@ -56,8 +56,22 @@ titles are blue and red). Stardate draws it in color.
 `ST.*` files and twenty CGA pictures in `.BIN` files. It keeps a log of the mission in `ST.LOG`,
 which it deletes and writes afresh; the copy that came with the game files, from a 2019 session,
 was left out of the repository. It opens with a pause, then its title picture in graphics, then
-the publisher's credit, which stays on a timer for a good while before the bridge, laid out as
-*The Kobayashi Alternative*'s is.
+its credits, each up for a second or two by the clock (it reads DOS's time, and works the
+seconds out with the C library's long arithmetic) over an animated starfield, and then the bridge,
+laid out as *The Kobayashi Alternative*'s is.
+
+## The speed
+
+The games were written for the IBM PC's 8088 at 4.77 MHz, and the machine runs at its pace,
+240,000 instructions a second, rather than the million of the DOSBox setups the games came
+with. *The Kobayashi Alternative* times its pauses by counting: each of its credits stays up for
+so many passes of an empty loop, `for (j = 0; j < 20000; j++)`, four instructions a pass, about
+80 of the 8088's clock cycles. That's a third of a second a pass on the 8088 and a twelfth at a
+million instructions a second, at which the credits went by too fast to read. *The Promethean
+Prophecy*'s FORTH counts too. *First Contact* goes by the clock, which is the machine's: the
+date and time the BIOS and DOS report are the host's when the machine started and the machine's
+time since, as the tick count is, so a game timed by the clock and one that counts keep the
+same pace at any speed. `--cycles` sets another speed.
 
 ## The display
 

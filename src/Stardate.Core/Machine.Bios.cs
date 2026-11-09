@@ -206,7 +206,7 @@ public sealed partial class Machine
     private void ClockService()
     {
         static int Bcd(int value) => ((value / 10) << 4) | (value % 10);
-        var now = DateTime.Now;
+        var now = Clock;
         switch (Ah)
         {
             case 0x00:

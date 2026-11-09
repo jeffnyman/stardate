@@ -30,14 +30,17 @@ what these games needed beyond it, and what's left.
    the three games by short name, `--cga-font`, and saved states. Checked headless, by
    screenshots and an off-screen render of the menu; *still to try in a real window*, with the
    keyboard, the sound, and Ctrl+F5 and Ctrl+F9.
+8. **The speed.** The games run at 240,000 instructions a second, the IBM PC's 8088 at 4.77 MHz,
+   rather than the million of their DOSBox setups: *The Kobayashi Alternative* and *The
+   Promethean Prophecy* time their pauses by counting, and at a million their messages went by
+   too fast to read. The date and time the BIOS and DOS report run with the machine's time,
+   as the tick count does, rather than the host's, so *First Contact*'s credits, timed by the
+   clock, keep pace with the rest.
 
 ## Next
 
-8. **Each game played through.** A walkthrough of each (in the manuals' folders) played to its
+9. **Each game played through.** A walkthrough of each (in the manuals' folders) played to its
    end, saving and restoring on the way, with whatever the games turn out to need. *The
    Promethean Prophecy* saves to drive B, its launcher's second disk image; that should be
    checked to land in the save folder and come back.
-9. **The speed.** The games ran on 4.77 MHz PCs; their DOSBox setups ran them at about a million
-   instructions a second, which is the default. Whether any of them has timing that wants the
-   original speed is to be seen.
 10. **Releases.** Downloads for Windows, Linux and macOS, as Confederation's are.

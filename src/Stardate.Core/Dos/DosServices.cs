@@ -441,7 +441,7 @@ internal sealed partial class DosServices(Machine machine, DosDrive drive)
                 break;
             case 0x2A:
             {
-                var now = DateTime.Now;
+                var now = machine.Clock;
                 cpu.Cx = (ushort)now.Year;
                 cpu.Dh = (byte)now.Month;
                 cpu.Dl = (byte)now.Day;
@@ -455,7 +455,7 @@ internal sealed partial class DosServices(Machine machine, DosDrive drive)
                 break;
             case 0x2C:
             {
-                var now = DateTime.Now;
+                var now = machine.Clock;
                 cpu.Ch = (byte)now.Hour;
                 cpu.Cl = (byte)now.Minute;
                 cpu.Dh = (byte)now.Second;
