@@ -8,7 +8,7 @@ A walkthrough from the Enterprise to the end, as a list of commands to type, pla
 ## Before you start
 
 - **The communicator** rings three times during the game. When it does, `turn on communicator`, listen to the message, then `turn off communicator`. At the third call, a Promethean Defender snatches it and crushes it under his boot; that's meant to happen, and you need it broken.
-- **Sandstorms:** always flee to the nearest gate. The inhabitants let you in, then force you out when the storm has passed. It's a good idea to draw a map, so you know where the nearest gate is. A storm can kill the whole landing party, and they can come while you're trading outside a gate.
+- **Sandstorms:** always flee to the nearest gate, and type `In` to go through it. The inhabitants let you in, then force you out when the storm has passed. It's a good idea to draw a map, so you know where the nearest gate is. A storm can kill the whole landing party, and they can come while you're trading outside a gate.
 - **Trading** gives different things at different times: if a trade doesn't give you what the walkthrough says, keep trading back and forth until it does. Check what you're carrying with `Inventory`.
 
 ## Aboard the Enterprise
@@ -70,15 +70,15 @@ A walkthrough from the Enterprise to the end, as a list of commands to type, pla
 
 ## Edge of Desert
 
-1. `Set phaser to wide beam`, `Get polyp`.
+1. `Set phaser to wide beam`, `Get polyp`. The polyp is one of the Fool's illusions, and reaching for it is what brings the burrowers.
 2. `Fire phaser at burrowers` again and again. Each sphere turns up in the sand as you fight ("a ribbed sphere is dislodged from the crusty sand", "you notice another sphere in the sand. This one is violet"): pick each one up at once, with `Get ribbed sphere` and `Get violet sphere`.
-3. As soon as you have both, `NW`. Stay too long and the burrowers get you.
+3. As soon as you have both, `Fire phaser at burrowers` once more, then `NW`. Without that last shot, a burrower is waiting for you when you come out of the cave. Don't stay longer than that, though: the burrowers close in with every move.
 
 ## Cave
 
-1. `Spock, scan cave`.
+1. `Spock, scan cave`, if you like, but it only gives advice, and every move here lets the burrowers come closer. It's safest to skip it.
 2. `Set phaser to overload`, `Drop phaser`, `SE`.
-3. `NW`, `Get rod`, `Examine rod`, `Spock, scan rod`.
+3. `NW` straight away, then `Get rod`, `Examine rod`, `Spock, scan rod`.
 4. `E`, `N`, `N`, `N`, `N`, `E`, `E`, `NE`.
 
 ## Outside Yellow Gate
@@ -110,10 +110,11 @@ A walkthrough from the Enterprise to the end, as a list of commands to type, pla
 
 ## Outside Yellow Gate, again
 
-1. Trade the spheres with Weelomin until you have all the gems back except the red gem: red, blue, green, violet and yellow go on the rod, so check with `Inventory` that you have the other four.
-2. `Show yellow gem to defender`. If he isn't there, wait until he returns. Showing it takes you through the gate into the Bazaar of the Traders, which is also shelter if a sandstorm comes.
-3. Trade with the trader there until you get the red gem.
-4. `E` (out of the bazaar), `SW`, `W`, `W`, `Join procession`. Make sure everyone is wearing their robes.
+1. A sandstorm may be blowing as you arrive (McCoy's joke about "Oklahoma rain" is the first sign), and then Weelomin and the Defender are gone. Type `In` at once to shelter inside the gate; when the storm has passed you're put back outside, and Weelomin returns.
+2. Trade the spheres with Weelomin until you have all the gems back except the red gem: red, blue, green, violet and yellow go on the rod, so check with `Inventory` that you have the other four.
+3. `Show yellow gem to defender`. If he isn't there, wait until he returns. Showing it takes you through the gate into the Bazaar of the Traders, which is also shelter if a sandstorm comes.
+4. Trade with the trader there until you get the red gem. It can take many trades: the trader's goods come round in a cycle (the forked thing, the knotted strand, the statue, the small sphere, the small disk, and so on), and in our play the red gem came on the eleventh.
+5. `E` (out of the bazaar), `SW`, `W`, `W`, `Join procession`. Make sure everyone is wearing their robes.
 
 ## Cloister of the Chanters, again
 
