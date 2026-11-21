@@ -8,6 +8,7 @@ namespace Stardate.Driver.Tests;
 public class RouteTests
 {
     [Theory]
+    [InlineData("stfc")]
     [InlineData("stka")]
     [InlineData("stpp")]
     public void A_route_reads_as_steps_with_distinct_names_and_balanced_braces(string game)
@@ -26,6 +27,7 @@ public class RouteTests
     // a route's last step expects the ending's text, so a route that plays through every step, all as
     // expected, has reached it
     [Theory]
+    [InlineData("stfc")]
     [InlineData("stka")]
     [InlineData("stpp")]
     public void A_route_plays_a_new_game_to_its_winning_ending(string game)

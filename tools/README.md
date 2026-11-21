@@ -4,10 +4,10 @@
 
 ```
 tools/Stardate.Driver   stardate-driver: plays a game headless, from a script, and looks inside it as it plays
-tools/routes            stka.route and stpp.route: each game played from a new game to its winning ending
+tools/routes            stfc.route, stka.route and stpp.route: each game played from a new game to its winning ending
 ```
 
-The driver was written to check the walkthroughs in `walkthroughs/`. Both walkthroughs were played to the end with it, and the routes here are those plays, kept so they can be run again. It's also a worked example of what the core's split from the player is for ([project layout](../docs/project-layout.md)). The driver uses only `Stardate.Core`'s public API: it loads a game into a `Machine`, runs it a number of instructions at a time, presses keys, reads the text screen and memory, and saves and loads the machine's state. No window, sound or SDL is involved.
+The driver was written to check the walkthroughs in `walkthroughs/`. All three walkthroughs were played to the end with it, and the routes here are those plays, kept so they can be run again. It's also a worked example of what the core's split from the player is for ([project layout](../docs/project-layout.md)). The driver uses only `Stardate.Core`'s public API: it loads a game into a `Machine`, runs it a number of instructions at a time, presses keys, reads the text screen and memory, and saves and loads the machine's state. No window, sound or SDL is involved.
 
 ## Running it
 
@@ -16,6 +16,7 @@ From the repository:
 ```
 dotnet run --project tools/Stardate.Driver -c Release -- play stka tools/routes/stka.route
 dotnet run --project tools/Stardate.Driver -c Release -- play stpp tools/routes/stpp.route
+dotnet run --project tools/Stardate.Driver -c Release -- play stfc tools/routes/stfc.route
 ```
 
 Each route takes some minutes. It prints what the game says as it goes, and ends with exit code 0 if every step went as expected, or 3, with the step that didn't, if one failed.
@@ -35,20 +36,21 @@ A person at the keyboard waits until the game is ready before typing, and reads 
 
 A key pressed while the game is busy is lost, or worse, arrives somewhere unexpected. So before each key the driver waits until the game is *ready*, which it decides in two parts.
 
-The first part is the same for both games: the screen has to stay still for 0.3 seconds. Some things on the screen move all the time, so they don't count. In *The Kobayashi Alternative* that's the twinkling stars (the `·` characters) and the `Time:dd dd dd` clock.
+The first part is the same for every game: the screen has to stay still for a moment, 0.3 seconds (1.2 in *First Contact*, below). Some things on the screen move all the time, so they don't count. In *The Kobayashi Alternative* that's the twinkling stars (the `·` characters) and the `Time:dd dd dd` clock.
 
 The second part is different for each game, because they read the keyboard differently. Each game's `GameProfile` (in `GameProfile.cs`) gives its own check:
 
 - ***The Kobayashi Alternative*** polls the keyboard in a loop of its own. The driver samples where the processor is, 24 times, 487 instructions apart (an odd number, so the samples don't fall in step with the loop). The game is ready when at least half of the samples fall inside the loop, at `108C:0560`–`05A0`. That address was found with `{where}` (below), run while the game sat at its prompt.
+- ***First Contact*** is *The Kobayashi Alternative*'s engine a year earlier, with the same windows, menus and order line, so its profile is Kobayashi's with its own loops: `0E78:06E8`–`0728` at the order prompt, and `23A2:2A40`–`2A80` at the computer's `::Inquiry::` prompt. A reply's "Press any key to continue" box can come up to a second after the reply, while the game polls the keyboard, so the screen must stay still for 1.2 seconds, and no pause may be showing.
 - ***The Promethean Prophecy*** reads keys through the BIOS. It's ready when the BIOS's keyboard buffer is empty (the words at `0040:001A` and `0040:001C` are equal) and the command window shows a fresh `//` prompt. A still screen isn't enough here: the game can clear its story window and then work for a while before it writes anything.
 
 When it types a line, the driver also waits for each character to be taken before it sends the next one.
 
 ### Pauses
 
-When a game fills its window it stops for a key. *The Kobayashi Alternative* shows "Hit any key to continue", and *The Promethean Prophecy* shows a line holding only `↓`. The driver keeps a copy of the screen and presses Space. With `--stop-at-pauses`, it leaves the pause waiting instead.
+When a game fills its window it stops for a key. *The Kobayashi Alternative* shows "Hit any key to continue", *First Contact* "Press any key to continue", and *The Promethean Prophecy* a line holding only `↓`. *First Contact*'s pictures, in the CGA's graphics mode, are pauses too: the driver reads no text from them, so it knows one by the mode, and by the processor waiting in the BIOS for a key (at `F000:0184`). The driver keeps a copy of the screen and presses Space, then waits for the screen to change before it would press again: a key the pause didn't take goes to the order line, and in *First Contact* the clock stops while a line is being typed. With `--stop-at-pauses`, it leaves the pause waiting instead.
 
-What the game said is worked out from those copies. *The Promethean Prophecy*'s new lines are read from its story window. *The Kobayashi Alternative*'s replies are read from its reply boxes and shown as "Speaker: text". When the window's title changes, the new place is shown as `[place]`.
+What the game said is worked out from those copies. *The Promethean Prophecy*'s new lines are read from its story window. *The Kobayashi Alternative*'s and *First Contact*'s replies are read from their reply boxes and shown as "Speaker: text", and *First Contact*'s story from its room window too. When the window's title changes, the new place is shown as `[place]`. The text a script looks for is matched against this as well as the screen, so a phrase that wraps inside a narrow reply box is still found.
 
 ### Each game's quirks
 
@@ -59,6 +61,12 @@ In *The Kobayashi Alternative*:
 - Esc closes a reply box, but with no box open it moves the cursor along the order line, so the driver presses Esc only when a box is open.
 - To clear the order line, the driver presses Backspace once for each character before the cursor. It reads the cursor's position from the BIOS data area, at `0040:0050`.
 - An order that fills the whole line ends the game.
+
+In *First Contact*:
+
+- A reply stays until the next order, and no key closes it: Esc moves the cursor, and anything else is typed. So the driver leaves replies alone.
+- Typed text is speech, to whoever Kirk is speaking to. What Kirk does himself (examine, take, touch, use, adjust) is chosen from menus, by `{menu}`.
+- The game looks ready a moment after an order before it is, so its route waits a second after each (`@pace 1`).
 
 *The Promethean Prophecy* wraps its lines, so a phrase the route looks for can be split across two of them. The driver joins wrapped lines before it searches.
 
@@ -88,10 +96,11 @@ A script is text with commands in braces. Plain text is typed as it is, and anyt
 | `{say:ORDER}` | Gives an order the way the game takes one: clears the line, types the order, presses Enter, and waits until the game is ready again. |
 | `{idle}` | Waits until the game is ready, up to a minute. |
 | `{pace:N}` | Waits N seconds after each order from now on. |
-| `{wait:TEXT;TEXT}` | Runs, pressing through pauses, until one of the texts appears. |
+| `{wait:TEXT;TEXT}` | Runs, pressing through pauses, until one of the texts appears, up to 150 seconds; `{wait:300:TEXT}` waits up to 300. |
 | `{expect:TEXT;TEXT}` | Fails the step unless one of the texts has appeared on the screen during it, including on screens that were pressed through. This is how a route knows it's still on course. |
 | `{retry:TEXT>ORDER>N}` | Gives the order again, up to N times (8 by default), until the text appears. |
 | `{trade:WHO:ITEM>WANT>N}` | Gives the item to WHO, then gives back whatever comes in return, up to N times (8 by default), until the item it wants comes back. It reads what was given from the reply ("He hands you a brush"). |
+| `{menu:KEY:ITEM:ITEM}` | Opens a menu with a key (`f8`, say) and chooses each item by its name, going on through the menu's pages (`F10 ...MORE`) until it's there; a box left open afterwards is closed. `{menu:f7:phaser:curtain rope}` uses the phaser on the curtain rope. Each key waits until the game is ready, as a menu drawn at 8088 speed takes a moment, and a key pressed before it's drawn goes to the page before. |
 | `{show}` / `{screen}` | Keeps a copy of the screen, or prints it. |
 
 There are also commands for *The Kobayashi Alternative*'s menus and screens:
@@ -140,7 +149,7 @@ Where a game's chances decide what happens, a route doesn't count on them. It wa
 
 ## Tests
 
-`tests/Stardate.Driver.Tests` reads each route every time the tests run, to check that its steps parse. Playing the routes to their endings takes several minutes, so that's done only when `STARDATE_ROUTES` is set:
+`tests/Stardate.Driver.Tests` reads each of the three routes every time the tests run, to check that its steps parse. Playing the routes to their endings takes several minutes, so that's done only when `STARDATE_ROUTES` is set:
 
 ```
 STARDATE_ROUTES=1 dotnet test tests/Stardate.Driver.Tests -c Release

@@ -73,10 +73,19 @@ internal sealed partial class Driver
     /// <summary>Whether a text was on the screen at any time this step: now, after an order, or at a pause.</summary>
     public bool Seen(params string[] texts) => Shows(texts) || Snapshots.Any(screen => Showing(screen, texts));
 
+    /// <summary>Whether a text is on the screen now, or was on one kept since the snapshot numbered <paramref name="since"/>, as at a pause pressed through.</summary>
+    public bool SeenSince(int since, params string[] texts) => Shows(texts) || Snapshots.Skip(since).Any(screen => Showing(screen, texts));
+
     // a text on one line, or, for a game whose text wraps, across the end of one and the start of the next
     private bool Showing(IReadOnlyList<string> screen, string[] texts)
     {
         if (screen.Any(line => texts.Any(t => line.Contains(t, StringComparison.Ordinal))))
+        {
+            return true;
+        }
+
+        // what was said, as the profile puts it back together: a reply wraps inside its box
+        if (Profile.Said([screen]).Any(line => texts.Any(t => line.Contains(t, StringComparison.Ordinal))))
         {
             return true;
         }
@@ -107,8 +116,8 @@ internal sealed partial class Driver
     public bool Ready()
     {
         string before = StillScreen();
-        Run(InstructionsPerSecond * 3 / 10);
-        return StillScreen() == before && Profile.WaitingForKey(this);
+        Run((int)(InstructionsPerSecond * Profile.StillFor));
+        return StillScreen() == before && Profile.WaitingForKey(this) && !Profile.Paused(this);
     }
 
     /// <summary>Whether the BIOS's keyboard buffer is empty: the game has taken every key pressed so far.</summary>
@@ -130,11 +139,7 @@ internal sealed partial class Driver
                     return;
                 }
 
-                // the pause's screen is kept, for what was said: it may be gone for good after the key
-                RunSeconds(0.5);
-                Snapshot();
-                PressNow(Keys.Space);
-                waited += 0.6;
+                waited += PressThroughPause();
                 continue;
             }
 
@@ -151,6 +156,28 @@ internal sealed partial class Driver
         {
             Output($"[*** not ready after {seconds} seconds]");
         }
+    }
+
+    /// <summary>
+    /// Presses Space at a pause, then waits for the screen to change, three seconds at most, so as not to
+    /// press again while the pause's box is still drawn: a key the pause didn't take goes to the order line,
+    /// and in First Contact the clock stops while a line is being typed. The seconds it took.
+    /// </summary>
+    public double PressThroughPause()
+    {
+        // the pause's screen is kept, for what was said: it may be gone for good after the key
+        RunSeconds(0.5);
+        Snapshot();
+        string before = StillScreen();
+        PressNow(Keys.Space);
+        double waited = 0.6;
+        for (int i = 0; i < 30 && StillScreen() == before && !Machine.Exited; i++)
+        {
+            RunSeconds(0.1);
+            waited += 0.1;
+        }
+
+        return waited;
     }
 
     // ---- keys ----------------------------------------------------------------------------------

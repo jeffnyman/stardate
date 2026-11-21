@@ -129,6 +129,7 @@ internal sealed partial class Script(Driver driver)
             case "retry": Retry(args); break;
             case "walk": Walk(args); break;
             case "trade": Trade(args); break;
+            case "menu": Menu(args); break;
             case "goto": Goto(args); break;
             case "take" or "pack" or "hand" or "wear": Kobayashi(name).Menu(name, args); break;
 
@@ -184,22 +185,34 @@ internal sealed partial class Script(Driver driver)
         }
     }
 
-    // {wait:TEXT;TEXT}: runs, pressing through pauses, until one of the texts shows, 150 seconds at most
+    // {wait:TEXT;TEXT}: runs, pressing through pauses, until one of the texts shows, 150 seconds at most;
+    // {wait:300:TEXT} waits so many seconds at most
     private void Wait(string args)
     {
+        double most = 150;
+        int colon = args.IndexOf(':');
+        if (colon > 0 && double.TryParse(args[..colon], NumberStyles.Float, CultureInfo.InvariantCulture, out double seconds))
+        {
+            most = seconds;
+            args = args[(colon + 1)..];
+        }
+
         var texts = args.Split(';');
-        int quarters = 0;
-        while (!driver.Shows(texts) && quarters++ < 600 && !driver.Machine.Exited)
+        double waited = 0;
+        int since = driver.Snapshots.Count;
+        while (!driver.SeenSince(since, texts) && waited < most && !driver.Machine.Exited)
         {
             if (driver.Profile.Paused(driver))
             {
-                driver.PressNow(Keys.Space);
+                waited += driver.PressThroughPause();
+                continue;
             }
 
-            driver.Run(driver.InstructionsPerSecond / 4);
+            driver.RunSeconds(0.25);
+            waited += 0.25;
         }
 
-        driver.Output(quarters > 600 ? $"[*** no {args}]" : $"[waited {quarters / 4.0:F1}s for {args}]");
+        driver.Output(waited >= most ? $"[*** no {args}]" : $"[waited {waited:F1}s for {args}]");
     }
 
     // {retry:TEXT;TEXT>ORDER} or {retry:TEXT>ORDER>TIMES}: gives the order again, eight times at most, until a text shows
@@ -277,6 +290,95 @@ internal sealed partial class Script(Driver driver)
 
     [GeneratedRegex(@"(?:hands you|gives you|presents you with|pulls out|you receive from the \w+|you receive) (?:a|an|the) ([a-z][A-Za-z \-]*?)\s*[.,!]")]
     private static partial Regex Given();
+
+    // {menu:KEY:ITEM:ITEM}: opens a menu with a key (f8, say), then picks each item in turn by its name
+    // in the menu showing, by the function key beside it ("F5 secret orders"), going on to the menu's
+    // next page ("F10 ...MORE") until the item is there. Then waits, pressing through pauses.
+    private void Menu(string args)
+    {
+        var parts = args.Split(':');
+        if (!Keys.Named.TryGetValue(parts[0], out var open))
+        {
+            throw new FormatException($"There's no key '{parts[0]}' to open a menu with.");
+        }
+
+        driver.Press(open.ScanCode, open.Extended);
+        driver.RunSeconds(0.5);
+        string? box = MenuBox(driver.ScreenText());
+        foreach (var item in parts.Skip(1))
+        {
+            for (int page = 0; ; page++)
+            {
+                // each key once the game is ready for it: a key pressed while the menu is still being
+                // drawn goes to the page before
+                if (MenuKey(driver.ScreenText(), item) is { } key)
+                {
+                    driver.Press(Keys.Named[key].ScanCode);
+                    driver.RunSeconds(0.5);
+                    break;
+                }
+
+                if (page == 6 || MenuKey(driver.ScreenText(), "...MORE") is not { } more)
+                {
+                    driver.Output($"[*** no {item} in the menu]");
+                    driver.Snapshot();
+                    driver.PressNow(Keys.Escape);
+                    driver.RunSeconds(0.5);
+                    driver.WaitUntilReady();
+                    return;
+                }
+
+                // the next page, read once it's drawn: the screen changes, and the game is ready again
+                string before = driver.StillScreen();
+                driver.Press(Keys.Named[more].ScanCode);
+                for (int i = 0; i < 30 && driver.StillScreen() == before; i++)
+                {
+                    driver.RunSeconds(0.1);
+                }
+
+                driver.WaitUntilReady();
+            }
+        }
+
+        // a box that stays open after the choice, as the inventory does, is closed
+        if (box is not null && MenuBox(driver.ScreenText()) == box)
+        {
+            driver.Snapshot();
+            driver.PressNow(Keys.Escape);
+            driver.RunSeconds(0.5);
+        }
+
+        driver.Snapshot();
+        driver.WaitUntilReady(60);
+        driver.Snapshot();
+        if (driver.Pace > 0)
+        {
+            driver.RunSeconds(driver.Pace);
+        }
+    }
+
+    // a menu's box, by its title: one drawn at the screen's left edge, as "┌ Inventory ─"
+    private static string? MenuBox(IReadOnlyList<string> screen) =>
+        screen.Select(line => MenuTitle().Match(line)).FirstOrDefault(m => m.Success)?.Groups[1].Value;
+
+    [GeneratedRegex(@"^┌ ([A-Za-z]+) ─")]
+    private static partial Regex MenuTitle();
+
+    // the key for an item in a menu box: "│ F5 secret orders   │" gives f5. A box can have columns, as
+    // First Contact's inventory does ("│ F2 thembo root    F3 phaser   │"), so an item ends at two spaces or a border.
+    private static string? MenuKey(IReadOnlyList<string> screen, string item)
+    {
+        var pattern = new Regex(@"(?<![A-Za-z])F(\d+) " + Regex.Escape(item) + @"(?=\s{2}|\s*│)", RegexOptions.IgnoreCase);
+        foreach (var line in screen)
+        {
+            if (pattern.Match(line) is { Success: true } m)
+            {
+                return "f" + m.Groups[1].Value;
+            }
+        }
+
+        return null;
+    }
 
     // {walk:DIRECTION:TEXT}: steps with an arrow key until the text shows, 120 steps at most
     private void Walk(string args)

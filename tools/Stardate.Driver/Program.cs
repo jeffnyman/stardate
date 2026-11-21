@@ -18,7 +18,7 @@ internal static class Program
           stardate-driver run <game> <state|-> <state out|-> "<script>" [options]
               runs one script, from a saved state or (-) a new game, and saves where it ends
 
-        games: stka or stpp
+        games: stfc, stka or stpp
 
         options:
           --states <folder>   where a route's states go (default: driver-states/<game>)
@@ -124,7 +124,7 @@ internal static class Program
             for (var dir = new DirectoryInfo(start); dir is not null; dir = dir.Parent)
             {
                 string candidate = Path.Combine(dir.FullName, "games");
-                if (Directory.Exists(Path.Combine(candidate, "stka")) && Directory.Exists(Path.Combine(candidate, "stpp")))
+                if (Directory.Exists(Path.Combine(candidate, "stka")) && Directory.Exists(Path.Combine(candidate, "stfc")))
                 {
                     return candidate;
                 }

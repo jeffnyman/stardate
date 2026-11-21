@@ -1,0 +1,90 @@
+# First Contact: a winning route, from a new game to contact with the Zontarites. It's walkthroughs/stfc-walkthrough.md,
+# as a script for stardate-driver: a step a line, "name | script".
+#
+#   stardate-driver play stfc tools/routes/stfc.route
+#
+# Kirk's own actions (examine, take, touch, use, adjust) are chosen from the game's menus with {menu}; what's typed is
+# said, to whoever Kirk is speaking to.
+
+# a second after each order: the game looks ready a moment before it is, and an order typed then is lost
+@pace 1
+
+# the opening: the title, the pictures, and the bridge, where Uhura has Starfleet's orders
+start        | {w20}{repeat:8:{if:┌ Kirk:{break}}{space}{w6}}{idle}{space}{idle}{expect:┌ Kirk}
+
+# the bridge: orbit Hearth, and Renner's call: Admiral Tecar is aboard
+hearth       | {say:Sulu}{say:Orbit Hearth}{wait:requests that you escort him}
+# Tecar, met on deck 7 (the transporter room's deck) with Lt. Gomez, and brought to the bridge. Left alone, he comes by
+# himself, put out, and there's no envelope
+escort       | {down}{w2}{idle}{say:Transporter room}{w2}{idle}{up}{w2}{idle}{walk:left:Tecar}{say:Tecar}{say:Follow me}{walk:right:↓ : turbolift}{down}{w2}{idle}{say:Bridge}{w2}{idle}{up}{wait:may I address the crew}
+tecar        | {say:Yes}{wait:envelope bearing}{menu:f8:secret orders}{expect:ruse of the diplomatic mission}
+
+# Starbase Lambda, in the Centauri system: the passengers
+centauri     | {say:Sulu}{say:Set course to Centauri}{say:Warp 5}{wait:objective achieved;Centauri system}
+lambda       | {say:Orbit Lambda}{say:Uhura}{say:Open hailing freq to Lambda}{wait:ready to beam up;beam up}{say:Yes}{wait:Visitor's Lounge}
+
+# the turbolift: down into it, a deck or a place named, and up out of it
+lounge       | {down}{w2}{idle}{say:Visitor's lounge}{w2}{idle}{up}{w2}{idle}{walk:left:↑ : lounge}{up}{wait:Permission to report}{say:Yes}{wait:sick bay;Sick Bay}
+
+# sick bay, on deck 7, with Dr. Hodges: Nurse Chapel stops you on the way, worried about Dr. McCoy
+sickbay      | {say:Yes}{down}{w2}{idle}{walk:right:↓ : turbolift}{down}{w2}{idle}{say:Sick bay}{w2}{idle}{up}{w2}{idle}{walk:left:↓ : sick bay}{down}{w3}{idle}{expect:McCoy and your guest leave you}
+
+# engineering, on deck 7: Scotty calls as you make for the bridge; Spock joins you, and Denjik, the shapeshifter, asks to join the crew
+scotty       | {up}{w2}{idle}{walk:right:↓ : turbolift}{down}{w2}{idle}{say:Bridge}{w2}{idle}{wait:in engineering}
+engineering  | {say:Engineering}{w2}{idle}{up}{w2}{idle}{walk:right:↓ : engineering}{down}{w3}{idle}{say:Kirk to Spock}{say:Come here}{wait:Denjik}
+denjik       | {wait:remain on board}{say:Yes}{wait:briefing room}
+
+# the briefing room, on deck 5: Johanson's list of the passengers, which Spock analyzes
+briefing     | {up}{w2}{idle}{walk:left:↓ : turbolift}{down}{w2}{idle}{say:Briefing room}{w2}{idle}{up}{w2}{idle}{walk:right:↑ : briefing room}{up}{wait:Permission to report}{say:Yes}{w3}{idle}{menu:f8:list}{screen}
+analysis     | {say:Spock}{say:Give list}{say:Analyze list}{wait:completed the requested analysis}{say:Results}{wait:stateroom on deck 5}
+
+# Populski's stateroom, on deck 5 (down, four doors left of the briefing room): his body, and McCoy called
+populski     | {left*4}{w1}{idle}{down}{w3}{idle}{expect:The body of Leon Populski}{say:Kirk to Bones}{say:Come here}{wait:for your eyes only;eyes only}
+
+# the bridge: Starfleet's message, for your eyes only
+message      | {up}{w2}{idle}{walk:left:↓ : turbolift}{down}{w2}{idle}{say:Bridge}{w2}{idle}{up}{w3}{idle}{say:Uhura}{say:Give me the message}{menu:f8:message}{expect:Good luck. -- Greg}
+
+# toward Gothica at warp 1, as Phlogis am-Greel suggested; the computer's files on the Formid
+course       | {say:Sulu}{say:Set course to Gothica}{say:Warp 1}{say:Computer data}{say:Formid}{say:D'nis}{say:M'ree}{say:Thembo root}{say:Formid cuisine}{esc}{w1}{idle}{expect:nausea and dizziness}
+
+# deck 5: the thembo root from the Formid suite's chamber (down from the corridor opposite the dining room, then down),
+# taken from the inventory's "In the area"; then the dining room, where the cocktail party begins at 0:37
+thembo       | {down}{w2}{idle}{say:Deck 5}{w2}{idle}{up}{w2}{idle}{walk:left:↑ : dining room}{down}{w3}{idle}{down}{w3}{idle}{menu:f2:thembo root}{up}{w2}{idle}{up}{w2}{idle}{up}{w3}{idle}{wait:300:special food requests}
+mree         | {say:Yes}{say:Give thembo root}{wait:Whose food}{say:M'ree}{wait:call security}{say:Yes}{wait:toast to the success}
+
+# Gothica, in the Ashadha system, at warp 8
+gothica      | {down}{w2}{idle}{walk:right:↓ : turbolift}{down}{w2}{idle}{say:Bridge}{w2}{idle}{up}{w3}{idle}{say:Sulu}{say:Warp 8}{wait:300:objective achieved}{say:Orbit Gothica}{expect:Standard orbit}
+
+# the transporter room, on deck 7, and down to Gothica
+beamdown     | {down}{w2}{idle}{say:Transporter room}{w2}{idle}{up}{w2}{idle}{walk:right:↓ : transporter}{down}{w3}{idle}{say:Renner}{say:Prepare landing party}{say:Beam us down}{wait:Golden Sceptre}
+
+# the palace: to the royal chapel (right, up, up) for the coronation; Whitlea asks you to recover the stolen sceptre
+coronation   | {right}{w2}{idle}{up}{w2}{idle}{up}{w3}{idle}{wait:recover the sceptre}
+# the chapel (left), then the trash basket, one down the corridor outside: the glue, the basket, and the smudge on Nils
+basket       | {say:Yes}{w2}{idle}{left}{w2}{idle}{right}{w2}{idle}{down}{w2}{idle}{menu:f2:tube of glue}{menu:f2:trash basket}{menu:f8:trash basket}{expect:wearing a disguise}{wait:discussion is needed}{menu:f8:nils}{expect:The smudge is}{wait:300:Shall we pursue}
+
+# the pursuit: beamed up, and a Klingon scout at the edge of Klingon space. The walkthrough's two torpedo salvos
+# always ended with the Enterprise destroyed here; screens raised and power diverted to the shields get through
+pursuit      | {say:Yes}{wait:Going to maximum warp}{up}{w1}{idle}{wait:closing fast}{menu:f6:Attack Orders:Raise screens}{menu:f6:Attack Orders:Divert power}{say:Shields}{wait:120:Tahl}
+
+# Avon, in the Tahl system: the shields lowered, or the transporter won't work; down from the corridor to the transporter room
+avon         | {say:Kirk to Sulu}{say:Orbit Avon}{wait:Transporter set}{say:Kirk to Sulu}{menu:f6:Attack Orders:Lower screens}{down}{w2}{idle}{say:Renner}{say:Prepare landing party}{say:Beam us down}{wait:materializes}{wait:Prince of Denmark}
+# the theater: down, then up to the stage, and right into the wings; the phaser on, and at the curtain's frayed rope.
+# Be quick: Brutus kills you after a number of moves
+curtain      | {down}{w2}{idle}{walk:up:↑ : theater stage}{up}{w2}{idle}{right}{w2}{idle}{expect:frayed rope}{menu:f4:phaser OFF}{menu:f7:phaser:curtain rope}{wait:poor beached whale}
+# the wreck of the Thespus: the airlock and the control room (right, right), where the satellite shows; the communicator on, and up
+thespus      | {right}{w2}{idle}{right}{w3}{idle}{wait:beam up}{menu:f4:communicator OFF}{say:Kirk to Renner}{say:Beam us up}{wait:Enterprise - the transporter}
+
+# the satellite: orbit, and down to the endgame
+satellite    | {say:Kirk to Sulu}{say:Orbit satellite}{wait:Transporter set;Standard orbit}{say:Renner}{say:Prepare landing party}{say:Beam us down}{expect:take these 5 tests}
+
+# the tests. 1: the rug, an alien welcome mat over a trapdoor
+test1        | {down}{w2}{idle}{menu:f8:rug}{say:Spock}{say:Tell me about rug}{wait:sculptures represent}
+# 2: the sculptures, the alphabet
+test2        | {menu:f5:sculptures}{say:The alphabet}{expect:That is correct}
+# 3: the nullifier's two riddles, a balloon and the gas to fill it; the nullifier can be touched once it's been there a while
+test3        | {repeat:12:{menu:f5:nullifier}{if:invisible contents:{break}}{w5}{idle}}{wait:invisible contents}{say:Balloon}{menu:f2:balloon}{menu:f5:nullifier}{wait:excited state}{say:Gas}{menu:f2:canister}{menu:f7:canister:balloon}{w2}{idle}{menu:f7:balloon:nullifier}{wait:walk to the next room}
+# 4: the room that shifts as you walk: left, left, down, down puts the door in front of you, and down goes through it
+test4        | {left}{w2}{idle}{left}{w2}{idle}{down}{w2}{idle}{down}{w2}{idle}{down}{w3}{idle}{wait:Choose, Captain}
+# 5: whoever goes through the door first dies, and Kirk goes himself: contact
+test5        | {up}{wait:200:journey toward enlightenment}{expect:journey toward enlightenment}

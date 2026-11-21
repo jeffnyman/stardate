@@ -54,7 +54,7 @@ Stardate's core began as a copy of [Confederation](https://github.com/jeffnyman/
 
 Expanded memory, protected mode, the mouse, the joystick, the CD and the sound cards Confederation needed are gone. [ROADMAP.md](ROADMAP.md) lays out what's done and what's next.
 
-[`tools/`](tools/README.md) has `stardate-driver`, which plays the games headless from scripts and looks inside them as they play, with routes that play *The Kobayashi Alternative* and *The Promethean Prophecy* to their winning endings. The walkthroughs in [`walkthroughs/`](walkthroughs) were checked with it.
+[`tools/`](tools/README.md) has `stardate-driver`, which plays the games headless from scripts and looks inside them as they play, with routes that play all three games to their winning endings. The walkthroughs in [`walkthroughs/`](walkthroughs) were checked with it.
 
 ## Author
 
