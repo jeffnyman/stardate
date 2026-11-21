@@ -19,3 +19,6 @@ _testdata/
 *.COM
 !games/**
 !src/Stardate.Core/Fonts/*.bin
+
+# stardate-driver's states, by default in the folder it's run from
+driver-states/

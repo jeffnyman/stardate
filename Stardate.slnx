@@ -3,8 +3,12 @@
     <Project Path="src/Stardate.Core/Stardate.Core.csproj" />
     <Project Path="src/Stardate.Player/Stardate.Player.csproj" />
   </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/Stardate.Driver/Stardate.Driver.csproj" />
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Stardate.Core.Tests/Stardate.Core.Tests.csproj" />
     <Project Path="tests/Stardate.Player.Tests/Stardate.Player.Tests.csproj" />
+    <Project Path="tests/Stardate.Driver.Tests/Stardate.Driver.Tests.csproj" />
   </Folder>
 </Solution>

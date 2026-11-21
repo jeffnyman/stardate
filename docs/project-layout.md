@@ -17,6 +17,8 @@ The **player** wraps the core in a real program, using SDL3 for the window, audi
 
 The player has tests of its own, for what it decides rather than what it shows: its settings, the games' short names, and the command line run end to end with a stand-in program in place of a game ([profiles and the menu](profiles-and-the-menu.md#checking-it)).
 
+A third program, in `tools/Stardate.Driver`, uses the core with no window at all: it plays the games from scripts, to check the walkthroughs, and looks inside them as they play ([tools/README.md](../tools/README.md)). It has tests of its own, in `tests/Stardate.Driver.Tests`.
+
 Splitting the two makes the core *testable without a screen*. A test can load a game, run it for a number of emulated frames, feed it keystrokes, and compare the framebuffer against a known image, all in a CI job with no display. Most of an emulator's bugs show up this way. The split also lets other programs use the core: a debugger, a tracer, a tool that documents the engine.
 
 ## The core's public surface is tracked
@@ -35,6 +37,8 @@ Splitting the two makes the core *testable without a screen*. A test can load a 
 ## Tests that need the games
 
 *The Kobayashi Alternative*, *The Promethean Prophecy* and *First Contact* are in the repository, in `games/stka`, `games/stpp` and `games/stfc`, by permission of their copyright holders ([NOTICE.md](../NOTICE.md)). The player's build copies `games/` beside the player, and the tests find it above their binaries (or in `STARDATE_GAMES`), so the tests of the games run everywhere, CI included. `.gitattributes` marks the folder binary, so git never touches a byte of it.
+
+The driver's tests read the routes in `tools/routes` every time, but play them to their endings only when `STARDATE_ROUTES` is set, as each takes minutes.
 
 The processor's single-step tests need the 80386 suite, which is large and stays out of the repository: they look for it in `STARDATE_TESTDATA`, or a `_testdata` folder above the test binary, and pass without checking when it isn't there.
 

@@ -31,6 +31,19 @@ public sealed class DosTests : IDisposable
     }
 
     [Fact]
+    public void The_time_dos_reports_runs_from_the_machines_start_time()
+    {
+        // mov ah, 2Ch; int 21h; mov al, ch; mov ah, 4Ch; int 21h: exits with the hour
+        File.WriteAllBytes(Path.Combine(_game, "HOUR.COM"), [0xB4, 0x2C, 0xCD, 0x21, 0x88, 0xE8, 0xB4, 0x4C, 0xCD, 0x21]);
+        var machine = new Machine(_game, _saves) { StartTime = new DateTime(1987, 3, 1, 9, 0, 0), Log = _log.Add };
+        machine.Load("HOUR.COM");
+        machine.Run(100_000);
+
+        Assert.True(machine.Exited, string.Join('\n', _log));
+        Assert.Equal(9, machine.ExitCode);
+    }
+
+    [Fact]
     public void A_com_program_starts_at_100h_with_its_segments_on_its_psp()
     {
         // mov ax, cs; mov bx, ds; cmp ax, bx; jne fail; mov bx, ss; cmp ax, bx; jne fail;

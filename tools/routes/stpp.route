@@ -1,0 +1,71 @@
+# The Promethean Prophecy: a winning route, from a new game to "Congratulations, Captain!"
+# It's walkthroughs/stpp-walkthrough.md, as a script for stardate-driver: a step a line,
+# "name | script".
+#
+#   stardate-driver play stpp tools/routes/stpp.route
+#
+# Where the game's own chances decide what happens (when a storm comes, what a trade gives, when
+# the communicator is broken), the route waits and checks with {repeat}, {if} and {mark}.
+
+# a second after each order: the game moves on with time, and a player takes a moment to read
+@pace 1
+
+# the Captain's Log, a page at a time, to the bridge
+start        | {w20}{repeat:10:{if:Moves:{break}}{space}{w6}}{expect:Moves:}
+
+# aboard the Enterprise: the Romulan attack, and the false image that mirrors the attacker
+bridge       | {say:Get holo}{say:Examine holo}{say:Look at Berryman}{say:Berryman, analyze planet}{say:Wait}{say:Examine viewscreen}{say:Berryman, analyze attacker}{say:Kirk to Spock}
+battle       | {say:Sulu, arm torpedoes}{say:Wait}{say:Wait}{say:Examine bird of prey}{say:Yes}{repeat:4:{if:indistinct data image:{break}}{say:Wait}}{say:Fire torpedo at image}{say:Fire torpedo at image}{say:Fire torpedo at image}{say:Fire torpedo at image}{expect:scorched and inert}
+damage       | {say:Yes}{say:Ask Spock about damage}
+transporter  | {say:Aft}{say:D}{say:D}{say:Fore}{say:Fore}{say:Get phaser and communicator}{say:Examine transporter}{say:Get on transporter}{say:Energize}{expect:Sandy Clearing}
+
+# the Sandy Clearing: the scuttler's gold sphere, the tablet the fleeing woman drops, and the first trades with Weelomin
+clearing     | {say:Examine obelisk}{say:Examine pictogram}{say:S}{say:Examine scuttler}{say:Wait}{say:Get gold sphere}{say:N}{say:N}{say:N}{say:Get tablet}{say:Examine tablet}{say:N}{say:E}{say:E}{say:NE}
+weelomin     | {say:Give holo to Weelomin}{say:Give gold sphere to Weelomin}{expect:forked thing}{say:SW}{say:W}{say:W}{say:W}{say:W}{say:NW}{say:NW}{say:N}{say:NE}{say:SE}{say:SE}
+
+# the Abandoned Enclave: the table across the quicksand, the tablet broken, and Gildea's red gem
+enclave      | {say:W}{say:Get strand}{say:Examine table}{say:Set phaser to narrow beam}{say:Fire phaser at table}{say:Drop all but tablet}{say:Get table}{say:E}{say:Put table on quicksand}{say:S}{say:Wait}{say:Show tablet to voice}{say:Break tablet}{say:U}{say:Wait}{say:Wait}{say:Wait}
+redgem       | {say:D}{say:N}{say:W}{say:Get all}{say:E}{say:NW}{say:D}{say:E}{say:N}
+
+# the Northern Promontory: the tarpaulin from the ledge, and the bowl, where a Defender breaks the communicator at its third call
+promontory   | {say:Put forked thing in crevice}{say:Put strand on forked thing}{say:D}{say:Get tarpaulin}{say:U}{say:Get forked thing and strand}{say:E}{say:S}{say:Get on bowl}
+bowl         | {repeat:40:{if:That was costly:{break}}{say:Wait}{if:communicator whistles:{say:Turn on communicator}{say:Turn off communicator}}}{expect:That was costly}
+ride         | {say:Put tarpaulin on bowl}{expect:Enclave of the Sustainers}
+
+# the Enclave of the Sustainers: Jharpe mends the communicator for the green gem; the box, and the Traders
+jharpe       | {say:Show communicator to Jharpe}{expect:green gem}{say:E}{say:Open box}{say:Get box}{say:W}{say:Show box to Jharpe}{say:NE}{say:E}{say:S}{say:W}{say:S}{say:Give box to Weelomin}
+goldsphere   | {trade:Weelomin:communicator>golden sphere}{expect:a golden sphere}
+traders      | {say:Show yellow gem to Defender}{say:Give forked thing to Trader}{trade:Trader:red gem>small sphere}{expect:a small sphere}{say:E}{say:SW}{say:W}{say:W}
+
+# the Blue Gate: a sandstorm, waited out, then the Fool, who sends you to the desert's edge
+storm        | {say:S}{repeat:60:{if:sandstorm is headed:{break}}{say:Wait}}{say:N}{say:N}{say:Wait}{say:Wait}{say:Wait}{say:Wait}{say:Wait}{say:Wait}
+fool         | {say:W}{say:W}{say:NW}{say:NW}{say:N}{say:Ask fool about gold sphere}{repeat:6:{if:desert's edge:{break}}{say:Wait}}{expect:desert's edge}
+
+# the Edge of the Desert: the burrowers, and the two spheres they turn up, each taken at once; then the Cave, where an
+# overloaded phaser brings the rock down, and the rod with it. The burrowers close in with every move, so none is
+# wasted (Spock's scan of the cave is only advice; the polyp, one of the Fool's illusions, is what sets them off).  With the
+# spheres in hand, one more shot clears the nearest burrowers; without it, one is waiting when you come out of the cave
+desert       | {say:S}{say:SE}{say:SE}{say:E}{say:E}{say:S}{say:S}{say:S}{say:S}{say:Set phaser to wide beam}{say:Get polyp}
+
+burrowers    | {repeat:12:{say:Fire phaser at burrowers}{ifnot:ribbed:{if:ribbed sphere is dislodged:{say:Get ribbed sphere}{mark:ribbed}}}{ifnot:violet:{if:is violet:{say:Get violet sphere}{mark:violet}}}{ifmark:ribbed,violet:{break}}}{expect:is violet}{say:Fire phaser at burrowers}{say:NW}{say:Set phaser to overload}{say:Drop phaser}{pace:0}{say:SE}{say:NW}{pace:1}{say:Get rod}{say:Examine rod}{say:Spock, scan rod}{expect:musical instrument}
+
+# Outside the Yellow Gate: robes for the landing party, and the procession into the Cloister
+robes        | {say:E}{say:N}{say:N}{say:N}{say:N}{say:E}{say:E}{say:NE}{trade:Weelomin:brush>wrinkled blue robe}{trade:Weelomin:violet sphere>statue}{expect:statue}{say:Show yellow gem to defender}{trade:trader:knotted strand>ragged blue robe}{trade:trader:statue>new robe}
+dress        | {say:E}{say:Wear embroidered robe}{say:Give wrinkled robe to Spock}{say:Give new robe to Dimas}{say:Give ragged robe to McCoy}{say:SW}{say:W}{say:W}{repeat:25:{say:Join procession}{if:Daia:{break}}{say:Wait}}{expect:Daia}
+
+# the Cloister of the Chanters: the rod's first chord gives the blue gem; the blue gem buys back the violet sphere
+conclave     | {say:Watch conclave}{say:Play rod}{say:S}{say:E}{say:E}{say:NE}{trade:Weelomin:blue gem>violet sphere}{expect:a violet sphere}
+
+# the Pod: the golden sphere in the light, and a sphere for each Delighter; the violet gem
+pod          | {say:SW}{say:W}{say:W}{say:W}{say:W}{say:NW}{say:E}{say:Enter pod}{say:Gaidren, tell me about abyss}{say:Put golden sphere in light}{say:Give ribbed sphere to delighter}{say:Mumbling}{say:Give small sphere to delighter}{say:Smiling}{say:Give violet sphere to delighter}{say:Spinning}
+spheres      | {say:Take golden sphere}{say:Take ribbed sphere}{say:Take small sphere}{say:Take violet sphere}{say:Out}{say:W}{say:SE}{say:E}{say:E}{say:E}{say:E}{say:NE}
+
+# the gems back: the blue from Weelomin, the red from the Trader, in the bazaar. A storm can be blowing at the Yellow
+# Gate as you come: "In" takes the landing party through the gate for shelter, and the storm passes
+bluegem      | {if:Oklahoma rain;fierce as the storm blows;Sand keeps getting in your eyes:{say:In}}{repeat:10:{if:Weelomin:{break}}{say:Wait}}{trade:Weelomin:ribbed sphere>blue gem}{expect:a blue gem}
+bazaar       | {repeat:10:{say:Show yellow gem to defender}{if:Bazaar of the Traders:{break}}{say:Wait}}{expect:Bazaar of the Traders}
+redgem2      | {trade:trader:small sphere>red gem>24}{expect:a red gem}
+
+# the Cloister again: the five gems on the rod, played and spun; the Afflictor takes it
+finale       | {say:E}{say:SW}{say:W}{say:W}{say:Join procession}{say:Put red gem on rod}{say:Put blue gem on rod}{say:Put green gem on rod}{say:Put violet gem on rod}{say:Put yellow gem on rod}{say:Play rod}{say:Spin rod}{expect:The Seed is roused}
+afflictor    | {say:Wait}{say:Wait}{say:Give rod to afflictor}{expect:Congratulations, Captain}

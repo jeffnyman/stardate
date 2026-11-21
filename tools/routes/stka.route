@@ -1,0 +1,88 @@
+# The Kobayashi Alternative (the 1987 PC release, version 2.0): a winning route, from a new game
+# to the good ending, with a score of 576 of 2001. It's walkthroughs/stka-walkthrough.md, as a
+# script for stardate-driver: a step a line, "name | script".
+#
+#   stardate-driver play stka tools/routes/stka.route
+#
+# The timing matters in places (Achir's bomb, the fight at Rird, the protostar), and the route is
+# timed to the driver as it is: each key waits for the game, and each step ends with a second's
+# settling.
+
+# the opening: the pause, Starfleet's orders, the pause, the bridge
+start        | {w20}{idle}{space}{idle} | 2
+# Spock and McCoy come along; the tricorder goes in the pack (one held in the hands is lost leaving the transporter room)
+spock        | {say:Spock, follow me}
+lift7        | {esc}{down}{say:transporter}{up}{walk:left:near Sickbay}
+mccoy        | {up}{say:McCoy, follow me}{esc}{down}{walk:right:near Transporter}{up}
+gear         | {take:communicator}{take:tricorder}{pack:tricorder}
+# to the bridge: into the Orna system, orbit, screens down
+bridge       | {down}{walk:right:near the turbo-lift}{up}{say:bridge}{up}
+course       | {say:Chekov, set a course for Orna}
+orbit        | {say:orbit the second planet}{w5}{idle}
+screens      | {say:lower the screens}
+# Orna: beam down to the tunnel, walk east to the cavern, ask the Ornae for help
+transporter  | {esc}{down}{say:transporter}{up}{walk:left:near Transporter}{up}
+beamdown     | {say:Renner, set coordinates at 7650.8150}{say:beam us down}
+cavern       | {esc}{walk:right:Within visibility range: Ornae}{w5}{idle}
+help         | {say:Ornae, can you help us}{w5}{idle}
+# back west to the valley, where the communicator works, and up
+valley       | {esc}{walk:left:a barren, stony valley}{left}{esc}{f5}{f2}{w1}{show}{esc}
+beamup       | {say:Kirk to Renner}{say:beam us up}{w3}{idle}
+check        | {esc}{f2}{w1}{show}{esc}
+# the tapes for Bhrf, taken in uniform (in the spacesuit their name comes out blank) and packed: with three things in the hands, the last of them is lost on leaving a room
+rec          | {down}{walk:right:near the turbo-lift}{up}{say:deck 8}{up}{walk:right:near Recdeck}{up}
+tapes        | {take:tapes}{pack:tapes}
+# back to the transporter room for a spacesuit, and Spock, who stayed there
+suitup       | {down}{walk:right:near the turbo-lift}{up}{say:transporter}{up}{walk:left:near Transporter}{up}{wear:Spacesuit}{say:Spock, follow me}
+# Achir, next: a Klingon bomb there goes off 500 game seconds (the word at DS:0F50) after the Enterprise orbits it
+bridge2      | {down}{walk:right:near the turbo-lift}{up}{say:bridge}{up}
+achircourse  | {say:Chekov, set a course for Achir}{say:warp factor 6}{w10}{idle}
+# the slow parts before orbit, which starts the bomb's clock: to the transporter room, then orbit by intercom
+achirarrive  | {w20}{idle}{esc}{down}{say:transporter}{up}{walk:left:near Transporter}{up}
+achirorbit   | {say:Kirk to Chekov}{say:orbit the first planet}{idle}
+# the five tribes, in order, each asked anything (their count, DS:0F52, goes up only in turn); the
+# Thshhath, fifth, then leaves the bomb at 6560.6000 on the dark side, and a phaser on stun defuses it
+melucht      | {say:Renner, beam us down}{idle}{say:Melucht, who are you}
+harapha      | {esc}{goto:6750.11400}{say:Harapha, who are you}
+asuiar       | {say:Kirk to Renner}{say:beam us up}{idle}{say:Renner, set coordinates at 6700.15100}{say:beam us down}{idle}{say:Asuiar, who are you}
+qqkq         | {say:Kirk to Renner}{say:beam us up}{idle}{say:Renner, set coordinates at 7500.12000}{say:beam us down}{idle}{say:qQkq, who are you}
+thshhath     | {say:Kirk to Renner}{say:beam us up}{idle}{say:Renner, set coordinates at 6560.12500}{say:beam us down}{idle}{say:Thshhath, who are you}
+bomb         | {say:Kirk to Renner}{say:beam us up}{idle}{say:Renner, set coordinates at 6560.6000}{say:beam us down}{idle}
+defuse       | {esc}{f6}{f1}{w3}{idle}
+# Bhrf: back up, to the bridge, at warp to its coordinates, and orbit its second planet
+achirleave   | {say:Kirk to Renner}{say:beam us up}{idle}{say:Spock, follow me}
+bridge3      | {esc}{down}{walk:right:near the turbo-lift}{up}{say:bridge}{up}
+bhrfcourse   | {say:Chekov, set a course for 14926.27312.25008}{say:warp factor 6}{w20}{idle}
+bhrfarrive   | {wait:Course objective achieved}{idle}{say:Spock, system scan}
+bhrforbit    | {say:Chekov, orbit the second planet}{idle}{say:Spock, scan the planet}{w10}{idle}
+# Bhrf, the planet of exhibits: the tapes in hand, down to the plaza
+bhrftrans    | {esc}{down}{say:transporter}{up}{walk:left:near Transporter}{up}{wear:Uniform}{pack:phaser}{hand:tapes}
+bhrfdown     | {say:Renner, set coordinates at 13000.3750}{say:beam us down}{idle}{f8}{w2}{idle}
+# with the tapes in hand, walk to the historical movie library: the Bhrfs take them as a gift, and one Bhrf joins the ship
+bhrfmovies   | {say:Bhrf, follow me}{esc}{goto:10000.2000}{w3}{idle}
+bhrfup       | {say:Kirk to Renner}{say:beam us up}{idle}{f8}{w2}{idle}
+# Rird, where the Klingons went: heat gear on in the transporter room (for Rird's third planet), Spock along, to the bridge
+rirdprep     | {wear:Heatgear}{say:Spock, follow me}{esc}{down}{walk:right:near the turbo-lift}{up}{say:bridge}{up}{f8}{w2}{idle}
+rirdcourse   | {say:Chekov, raise the screens}{say:set phasers to full power}{say:divert power to the torpedoes}{say:set a course for 2567.23762.24312}{say:warp factor 6}{wait:Course objective achieved}{idle}
+# the fight: the "Kaza destroyer" is the Rird ship 'Lihiln' in disguise; the Menekku is the real Klingon. Power to the
+# torpedoes before warping in (above); lock on while it closes, and fire back once it has fired: the Federation never
+# shoots first. One hit and the Menekku gives up; the Lihiln shows itself and leaves for its home planet
+battle       | {wait:Klingon warship Menekku}{idle}{w2}{say:Chekov, lock photon torpedoes on Menekku}{wait:Fire from the Menekku;Enemy fire;re hit}{say:fire torpedoes}{wait:Rird ship departing}{idle}
+# Rird, the third planet: the crashed ship at 7105.7410, not too close
+rirdorbit    | {say:Chekov, orbit the third planet}{w5}{idle}
+rirdtrans    | {esc}{down}{say:transporter}{up}{walk:left:near Transporter}{up}
+rirddown     | {say:Kirk to Chekov}{say:lower the screens}{say:Renner, set coordinates at 7000.7300}{say:beam us down}{idle}{f8}{w2}{idle}
+# the Rirder: don't go near the burning ship; have Renner beam them up from where it lies. They give a stealth device
+rescue       | {say:Kirk to Renner}{say:set coordinates at 7105.7410}{say:beam up the Rirder}{w5}{idle}{w5}{idle}
+# the device to Scotty in Engineering (two things in hand: the phaser goes in the pack)
+device       | {esc}{pack:phaser}{take:device}{down}{walk:right:near Engineering}{up}{f8}{w2}{idle}
+# Scotty, called to Engineering, analyzes the device, which installs it ("plugged her into the warp generator")
+analyze      | {say:Kirk to Scotty}{say:come to me}{wait:Scott enters}{idle}{say:Scotty, analyze the device}{w10}{idle}{say:results}{w3}{idle}
+# the end: to the protostar. The cloak lasts about 3 3/4 game minutes, so it goes on only for the last leg, after the warp drops out at a Federation buoy; Scotty turns it on from Engineering
+# the antimatter from Engineering, carried to the transporter room and left there for Renner
+antimatter   | {esc}{take:antimatter}{down}{walk:left:near Transporter}{up}{esc}{f9}{w1}{f2}{w2}{idle}
+endbridge    | {down}{walk:right:near the turbo-lift}{up}{say:bridge}{up}{f8}{w2}{idle}
+endcourse    | {say:Chekov, set a course for 8572.27041.27324}{say:warp factor 6}{wait:MM-711}{idle}
+endcloak     | {say:Kirk to Scotty}{say:turn the device on}{say:Chekov, warp factor 6}{wait:Course objective achieved}{idle}
+# orbit the star FIRST, then Spock's mindmeld: in orbit it reaches the presence (setting DS:00DC), and the antimatter, beamed down at once, wakes the star
+endmeld      | {retry:STAR ORBIT>Chekov, orbit the star}{say:Spock, mindmeld}{say:Kirk to Renner}{say:beam down the antimatter}{wait:Coffee, gentlemen}{expect:Coffee, gentlemen}

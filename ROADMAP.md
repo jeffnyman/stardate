@@ -13,7 +13,9 @@ The games are simple next to *Wing Commander*: 8088 programs for a 128 KB IBM PC
 7. **The player.** Confederation's SDL3 window, sound, keyboard and menu, on the new core, with the three games by short name, `--cga-font`, and saved states. Checked headless, by screenshots and an off-screen render of the menu; *still to try in a real window*, with the keyboard, the sound, and Ctrl+F5 and Ctrl+F9.
 8. **The speed.** The games run at 240,000 instructions a second, the IBM PC's 8088 at 4.77 MHz, rather than the million of their DOSBox setups: *The Kobayashi Alternative* and *The Promethean Prophecy* time their pauses by counting, and at a million their messages went by too fast to read. The date and time the BIOS and DOS report run with the machine's time, as the tick count does, rather than the host's, so *First Contact*'s credits, timed by the clock, keep pace with the rest.
 
+9. **Two games played through.** *The Kobayashi Alternative* and *The Promethean Prophecy* played from a new game to their winning endings, headless, by a driver that uses the core's public API alone ([tools/](tools/README.md)). The routes it played are in `tools/routes`, and the walkthroughs in `walkthroughs/` were corrected from them: *The Kobayashi Alternative*'s is now for the PC's version 2.0, with its good ending.
+
 ## Next
 
-9. **Each game played through.** A walkthrough of each (in the manuals' folders) played to its end, saving and restoring on the way, with whatever the games turn out to need. *The Promethean Prophecy* saves to drive B, its launcher's second disk image; that should be checked to land in the save folder and come back.
-10. **Releases.** Downloads for Windows, Linux and macOS, as Confederation's are.
+10. **The rest played through.** *First Contact* played to its end. *The Promethean Prophecy* saves to drive B, its launcher's second disk image; that should be checked to land in the save folder and come back.
+11. **Releases.** Downloads for Windows, Linux and macOS, as Confederation's are.

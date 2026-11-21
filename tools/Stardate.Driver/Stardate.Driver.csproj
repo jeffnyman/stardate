@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>stardate-driver</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Stardate.Driver.Tests" />
+    <ProjectReference Include="..\..\src\Stardate.Core\Stardate.Core.csproj" />
+  </ItemGroup>
+</Project>

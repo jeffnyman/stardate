@@ -24,6 +24,8 @@ Stardate.Core.Machine.ReleaseKeys() -> void
 Stardate.Core.Machine.Render(System.Span<uint> pixels) -> void
 Stardate.Core.Machine.Run(long instructions) -> bool
 Stardate.Core.Machine.SaveState(System.IO.Stream! stream) -> void
+Stardate.Core.Machine.StartTime.get -> System.DateTime
+Stardate.Core.Machine.StartTime.set -> void
 Stardate.Core.Machine.ScreenText() -> System.Collections.Generic.IReadOnlyList<string!>!
 Stardate.Core.Machine.Time.get -> System.TimeSpan
 Stardate.Core.Machine.VideoMode.get -> int

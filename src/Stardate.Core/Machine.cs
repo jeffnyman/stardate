@@ -161,16 +161,20 @@ public sealed partial class Machine : ICpuBus
     /// <summary>The emulated time since the machine started.</summary>
     public TimeSpan Time => TimeSpan.FromSeconds((double)_time / InstructionsPerSecond);
 
-    // the date and time the machine started at, the host's, from which its clock runs
-    private readonly DateTime _started = DateTime.Now;
+    /// <summary>
+    /// The date and time the machine's clock starts at: by default the host's, when the machine
+    /// is made. Games take their chances from the clock, so a machine given a fixed start, and
+    /// the same keys at the same moments, plays the same way every time.
+    /// </summary>
+    public DateTime StartTime { get; set; } = DateTime.Now;
 
     /// <summary>
-    /// The date and time in the machine, which the BIOS and DOS report: the host's when it
-    /// started, and the machine's time since. It keeps pace with the instructions, as the
-    /// tick count does, so a game that times itself by the clock sees the same time pass as
-    /// one that counts, at any speed, and in the tests, which run faster than the host's clock.
+    /// The date and time in the machine, which the BIOS and DOS report: <see cref="StartTime"/>
+    /// and the machine's time since. It keeps pace with the instructions, as the tick count
+    /// does, so a game that times itself by the clock sees the same time pass as one that
+    /// counts, at any speed, and in the tests, which run faster than the host's clock.
     /// </summary>
-    internal DateTime Clock => _started + Time;
+    internal DateTime Clock => StartTime + Time;
 
     private double Seconds => (double)_time / InstructionsPerSecond;
 
