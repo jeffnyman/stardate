@@ -2,8 +2,7 @@
 
 A walkthrough for the IBM PC release (version 2.0, from 1987), the one Stardate plays. It follows the shortest route found through the game, played headless in Stardate from a new game and checked step by step, with every order given exactly as typed. It differs a good deal from the walkthroughs written for the Apple II version: Orna can't be skipped, Achir has a time bomb, and the fight at Rird and the ending at the protostar work differently.
 
-> [!NOTE]
-> The good ending hasn't been reached yet. The route gets you to the final scene at the protostar, but beaming the antimatter down there, as described below, ends with the star going nova. What the game checks to choose the good ending is still unknown; see [The protostar](#the-protostar).
+It's a short route: it wins the game with a score of 576, against a best possible of 2001, by visiting only the planets the story needs. The others (Tshio, Andorgha, Hastorang, Klusos, Malakiyy, Jauzah, Khut, Niau, Ascella, Hwount) add to the score but aren't covered here.
 
 ## Playing
 
@@ -112,10 +111,12 @@ Firing late, or not at all, gets the screens overloaded and the ship badly damag
 1. From the bridge: `Chekov, set a course for 8572.27041.27324`, `warp factor 6`. The warp drops out at a Federation message buoy: "the standard Federation code MM-711. It may be a message from Sulu."
 2. Now turn the cloak on: `Kirk to Scotty`, `turn the device on`. Scotty must be in Engineering to do it. The cloak lasts about 3 3/4 game minutes before it burns out, so don't turn it on any earlier.
 3. `Chekov, warp factor 6`. In the Coalsack Normae, several Klingon vessels "soar quietly past you, out into open space": the cloak fools them. There's a huge metal framework of machine installations here, an immense glowing star, and Klingon warships.
-4. Spock: "Utterly fascinating... I recommend we orbit the star. I sense a presence here trying to communicate, Captain." `Spock, mindmeld`: "... captain, we need ... orbit the star ... great energy ... bring it to life..."
-5. `Chekov, orbit the star`. About 20 seconds after you're in orbit, the Klingons' pressor beams crush the Enterprise, cloak or no cloak, so be quick.
-6. `Kirk to Renner`, `set coordinates at 5000.5000`, `beam down the antimatter`.
+4. Spock: "Utterly fascinating... I recommend we orbit the star. I sense a presence here trying to communicate, Captain."
+5. `Chekov, orbit the star` first. About 20 seconds after you're in orbit, the Klingons' pressor beams crush the Enterprise, cloak or no cloak, so the next three orders have to come quickly.
+6. `Spock, mindmeld`. Spock sits down and closes his eyes.
+7. `Kirk to Renner`, `beam down the antimatter`. Any transporter coordinates will do.
 
-Done this way, the antimatter goes down, but the star goes nova: "you have failed your mission, failed Starfleet, and failed the quadrillions of innocent lives depending on you to keep a terrible secret from being released in the Universe as a weapon." The test evaluation is 577; the game's high score is 2001.
+"A star is being born. So is something else." The newborn star reaches into the minds of everyone near it, the Klingons break off, and without them it takes you very little time to find the missing Fleet ships, and their crews, put to work in a Klingon station hidden in the coalsack. The game ends over dinner with Spock, Sulu and McCoy: "Coffee, gentlemen?"
 
-The game has a good ending too, in which "a star is being born. So is something else", and Spock, in the mindmeld, falls back in his seat with a cry. What it takes is still to be found. This route skips most of the game, and the good ending may depend on something it leaves out: the message buoy (Uhura can analyze messages), the Heinlein at Ascella (3060.28172.25879), or the clues on the other planets.
+> [!WARNING]
+> The order matters. The game checks whether the mindmeld reached the presence, which depends on where the Enterprise is; in orbit around the star it works. Done before the orbit, it can fail without any sign of it, and then when the antimatter goes down the star goes nova: "you have failed your mission, failed Starfleet, and failed the quadrillions of innocent lives depending on you to keep a terrible secret from being released in the Universe as a weapon."
