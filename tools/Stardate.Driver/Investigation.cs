@@ -104,6 +104,42 @@ internal static class Investigation
     /// until the log next has the text, keeping the last N instructions (4,000 by default), and
     /// prints them, each with its registers.
     /// </summary>
+    /// <summary>
+    /// <c>{traceinto:SEG:FROM:TO}</c> or <c>{traceinto:SEG:FROM:TO:N}</c>: runs an instruction at a time until the
+    /// processor reaches SEG:FROM up to SEG:TO, then prints the last N instructions (4000 by default) before it,
+    /// each with the first bytes at its address: how a program came to run where it shouldn't.
+    /// </summary>
+    public static void TraceInto(Driver driver, string args)
+    {
+        var parts = args.Split(':');
+        ushort segment = Hex16(parts[0]), from = Hex16(parts[1]), to = Hex16(parts[2]);
+        int keep = parts.Length > 3 ? int.Parse(parts[3], CultureInfo.InvariantCulture) : 4000;
+        var ring = new Queue<string>();
+        for (long n = 0; !driver.Machine.Exited && n < 400_000_000; n++)
+        {
+            var cpu = driver.Machine.Cpu;
+            if (cpu.Cs == segment && cpu.Eip >= from && cpu.Eip <= to)
+            {
+                break;
+            }
+
+            ring.Enqueue(Instruction(driver));
+            if (ring.Count > keep)
+            {
+                ring.Dequeue();
+            }
+
+            Step(driver, n);
+        }
+
+        foreach (var line in ring)
+        {
+            driver.Output("T " + line);
+        }
+
+        driver.Output($"[reached {driver.Machine.Cpu.Cs:X4}:{driver.Machine.Cpu.Eip:X4}]");
+    }
+
     public static void TraceBefore(Driver driver, string args)
     {
         var parts = args.Split(':');
@@ -113,7 +149,7 @@ internal static class Investigation
         int seen = driver.Log.Count(l => l.Contains(text, StringComparison.Ordinal));
         for (long n = 0; driver.Log.Count(l => l.Contains(text, StringComparison.Ordinal)) == seen && !driver.Machine.Exited && n < 400_000_000; n++)
         {
-            ring.Enqueue($"{driver.Machine.Cpu.Cs:X4}:{driver.Machine.Cpu.Eip:X4} {Registers(driver)}");
+            ring.Enqueue(Instruction(driver));
             if (ring.Count > keep)
             {
                 ring.Dequeue();
@@ -136,6 +172,15 @@ internal static class Investigation
         {
             driver.PressNow(Keys.Space);
         }
+    }
+
+    // an instruction about to run, as a trace shows it: its address, its first bytes, and the registers
+    private static string Instruction(Driver driver)
+    {
+        var cpu = driver.Machine.Cpu;
+        uint at = ((uint)cpu.Cs << 4) + (uint)cpu.Eip;
+        string bytes = string.Join(' ', Enumerable.Range(0, 6).Select(i => driver.Machine.Read(at + (uint)i).ToString("X2", CultureInfo.InvariantCulture)));
+        return $"{cpu.Cs:X4}:{cpu.Eip:X4}  {bytes,-17}  {Registers(driver)}";
     }
 
     private static string Registers(Driver driver)

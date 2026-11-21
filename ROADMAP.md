@@ -15,7 +15,8 @@ The games are simple next to *Wing Commander*: 8088 programs for a 128 KB IBM PC
 
 9. **The games played through.** *First Contact*, *The Kobayashi Alternative* and *The Promethean Prophecy* played from a new game to their winning endings, headless, by a driver that uses the core's public API alone ([tools/](tools/README.md)). The routes it played are in `tools/routes`, and the walkthroughs in `walkthroughs/` were corrected from them: *The Kobayashi Alternative*'s is now for the PC's version 2.0, with its good ending, and *First Contact*'s has its battle and its last two tests put right.
 
+10. **Saves.** *The Promethean Prophecy* saves to drive B, its launcher's second disk image, `SAVE.DAT`. A save lands in a copy of it in the save folder and restores in a new game. It hadn't: the launcher never closes the image, and DOS writes waited in .NET's file buffer for a close that never came, so a save's last block was lost. Writes now go to the disk at once.
+
 ## Next
 
-10. **Saves.** *The Promethean Prophecy* saves to drive B, its launcher's second disk image; that should be checked to land in the save folder and come back.
 11. **Releases.** Downloads for Windows, Linux and macOS, as Confederation's are.

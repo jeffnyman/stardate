@@ -110,6 +110,35 @@ public sealed class DosTests : IDisposable
     }
 
     [Fact]
+    public void A_write_reaches_the_disk_though_the_file_is_never_closed()
+    {
+        // The Promethean Prophecy's launcher keeps its save disk's image open for the whole game: a
+        // save must be on the disk at once, for the player may quit, or load a saved state, at any time
+        File.WriteAllText(Path.Combine(_game, "SAVE.DAT"), "original");
+
+        //   push cs; pop ds
+        //   mov ax, 3D01h; mov dx, name; int 21h     open SAVE.DAT for writing
+        //   mov bx, ax; mov ah, 40h; mov cx, 3; mov dx, data; int 21h
+        //   jmp $                                    and never close it
+        File.WriteAllBytes(Path.Combine(_game, "TEST.EXE"), Exe(
+        [
+            0x0E, 0x1F,
+            0xB8, 0x01, 0x3D, 0xBA, 0x18, 0x00, 0xCD, 0x21,
+            0x89, 0xC3, 0xB4, 0x40, 0xB9, 0x03, 0x00, 0xBA, 0x21, 0x00, 0xCD, 0x21,
+            0xEB, 0xFE,
+            .. "SAVE.DAT\0"u8,
+            .. "new"u8,
+        ]));
+        var machine = new Machine(_game, _saves) { Log = _log.Add };
+        machine.Load("TEST.EXE");
+        machine.Run(100_000);
+
+        Assert.False(machine.Exited, string.Join('\n', _log));
+        using var saved = new FileStream(Path.Combine(_saves, "SAVE.DAT"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        Assert.Equal("newginal", new StreamReader(saved).ReadToEnd());
+    }
+
+    [Fact]
     public void A_directory_is_made_in_the_save_folder_and_removed()
     {
         // a program makes C:\WC3 for its settings and saves:

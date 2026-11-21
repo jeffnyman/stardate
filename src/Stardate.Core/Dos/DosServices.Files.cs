@@ -290,8 +290,12 @@ internal sealed partial class DosServices
                 stream.SetLength(stream.Position);
             }
 
+            // to the disk now, not when the file is closed: a program may never close it (The Promethean
+            // Prophecy's launcher keeps its save disk's image open for the whole game), and the machine
+            // may be saved and loaded, or the player quit, with the last write still in the stream's buffer
             stream.Write(buffer);
-            machine.Trace($"21/40 write {buffer.Length} bytes to {cpu.Bx} ({file.Name})");
+            stream.Flush();
+            machine.Trace($"21/40 write {buffer.Length} bytes to {cpu.Bx} ({file.Name}) from {cpu.Ds:X4}:{cpu.Dx:X4}");
         }
         else if (file.Name == "CON")
         {

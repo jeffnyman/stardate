@@ -150,6 +150,7 @@ internal sealed partial class Script(Driver driver)
             case "breakat": Investigation.BreakAt(driver, args); break;
             case "runto": Investigation.RunTo(driver, args); break;
             case "tracebefore": Investigation.TraceBefore(driver, args); break;
+            case "traceinto": Investigation.TraceInto(driver, args); break;
             case "log":
                 foreach (var line in driver.Log)
                 {
