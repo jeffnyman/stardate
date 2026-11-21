@@ -1,4 +1,10 @@
-# Stardate
+<h1 align="center">
+<img src="https://raw.githubusercontent.com/jeffnyman/stardate/main/assets/stardate-title.png" width="600" alt="Stardate">
+</h1>
+
+<p align="center">
+  <a href="https://github.com/jeffnyman/stardate/actions/workflows/build.yml"><img src="https://img.shields.io/github/actions/workflow/status/jeffnyman/stardate/build.yml?branch=main&style=for-the-badge&label=build" alt="Build"></a>
+</p>
 
 **Stardate** plays Simon & Schuster's *Star Trek* interactive fiction for the IBM PC, as it was back in the good old days. It's a C# DOS PC emulator built for these games alone, not to be a whole PC: you pick a game and it plays, at the speed it was meant to run, in the colors and characters it was originally drawn in.
 
