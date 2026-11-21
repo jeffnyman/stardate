@@ -1,6 +1,6 @@
 # Stardate
 
-**Stardate** plays Simon & Schuster's *Star Trek* interactive fiction for the IBM PC, as it was. It's a C# DOS PC emulator built for these games alone, not to be a whole PC: you pick a game and it plays, at the speed it was meant to run, in the colors and characters it was drawn in.
+**Stardate** plays Simon & Schuster's *Star Trek* interactive fiction for the IBM PC, as it was back in the good old days. It's a C# DOS PC emulator built for these games alone, not to be a whole PC: you pick a game and it plays, at the speed it was meant to run, in the colors and characters it was originally drawn in.
 
 <table>
 <tr>
@@ -54,6 +54,60 @@ Stardate's core began as a copy of [Confederation](https://github.com/jeffnyman/
 
 Expanded memory, protected mode, the mouse, the joystick, the CD and the sound cards Confederation needed are gone. [ROADMAP.md](ROADMAP.md) lays out what's done and what's next.
 
+## Author
+
+<p align="center">
+  Made with 🤍 by <a href="https://github.com/jeffnyman">Jeff Nyman</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/C%23-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="C#">
+</p>
+
+<p align="center">
+  <a href="https://testerstories.com" target="_blank" >
+    <img src="https://img.shields.io/badge/Website-Jeff%20Nyman-000000?style=social&logo=wordpress" alt="Website - Jeff Nyman">
+  </a>
+</p>
+<p align="center">
+  <a href="https://www.linkedin.com/in/jeffnyman/" target="_blank" >
+    <img src="https://img.shields.io/badge/LinkedIn-Jeff%20Nyman-0A66C2?style=social&logo=linkedin" alt="LinkedIn - Jeff Nyman">
+  </a>
+</p>
+
+## Doxazein (δοξάζειν)
+
+<p align="center">
+  חֶסֶד וֶאֱמֶת אַל־יַעַזְבֻךָ קָשְׁרֵם עַל־גַּרְגְּרֹתֶיךָ כָּתְבֵם עַל־לוּחַ לִבֶּךָ
+</p>
+
+<p align="center">
+"Let not mercy and truth forsake thee:<br>
+bind them about thy neck;<br>
+write them upon the table of thine heart."<br>
+<em>Proverbs 3:3</em>
+</p>
+
 ## License
 
-Stardate is free software under the GNU General Public License, version 3 ([LICENSE](LICENSE)). The games are not; see [NOTICE.md](NOTICE.md).
+**Stardate**, A Player for Simon & Schuster's *Star Trek* Interactive Fiction\
+Copyright (C) 2026 [Jeff Nyman][owner]
+
+[![GNU General Public License version 3](https://raw.githubusercontent.com/jeffnyman/stardate/main/assets/gplv3-127x51.png)][GNU General Public License]
+
+> This program is free software: you can redistribute it and/or modify
+> it under the terms of the [GNU General Public License] as published by
+> the Free Software Foundation, either version 3 of the License, or
+> (at your option) any later version.
+>
+> This program is distributed in the hope that it will be useful,
+> but WITHOUT ANY WARRANTY; without even the implied warranty of
+> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+> [GNU General Public License] for more details.
+
+[owner]: https://github.com/jeffnyman
+[GNU General Public License]: https://www.gnu.org/licenses/gpl-3.0.en.html
+
+The emulator core is derived from [Confederation](https://github.com/jeffnyman/confederation), also by Jeff Nyman. Portions of it, and the PC's ROM font in `src/Stardate.Core/Fonts`, are derived from DOSBox, © the DOSBox Team, under the GNU General Public License, version 2 or later.
+
+The *Star Trek* games in `games/` are not part of Stardate's own work and do not fall under this license. They are copyrighted works of their owners, included by permission, and may not be sold or charged for; see [NOTICE.md](NOTICE.md).
