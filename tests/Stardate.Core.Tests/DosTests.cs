@@ -134,8 +134,15 @@ public sealed class DosTests : IDisposable
         machine.Run(100_000);
 
         Assert.False(machine.Exited, string.Join('\n', _log));
-        using var saved = new FileStream(Path.Combine(_saves, "SAVE.DAT"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-        Assert.Equal("newginal", new StreamReader(saved).ReadToEnd());
+        string written;
+        using (var saved = new FileStream(Path.Combine(_saves, "SAVE.DAT"), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        {
+            written = new StreamReader(saved).ReadToEnd();
+        }
+
+        // the program never closes it, and Windows won't delete an open file when the test cleans up
+        machine.CloseFiles();
+        Assert.Equal("newginal", written);
     }
 
     [Fact]
