@@ -1,5 +1,5 @@
 # Builds the downloads: Stardate as one program for each platform, beside the included games
-# (games/, by Electronic Arts' permission; see NOTICE.md) and the notices. A tag such as v0.1.0
+# (games/, by their copyright holders' permission; see NOTICE.md) and the notices. A tag such as v0.1.0
 # makes a GitHub release of them; run by hand, it only builds them, as the run's artifacts, to try
 # before tagging.
 name: Publish

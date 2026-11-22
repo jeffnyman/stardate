@@ -26,8 +26,8 @@
     <RepositoryUrl>https://github.com/jeffnyman/stardate</RepositoryUrl>
     <PackageProjectUrl>https://github.com/jeffnyman/stardate</PackageProjectUrl>
     <!-- dotnet pack -p:VersionSuffix=alpha.2 for the next prerelease; an empty suffix is a release -->
-    <VersionPrefix>0.1.0</VersionPrefix>
-    <VersionSuffix>alpha</VersionSuffix>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>dos;pc;emulator;x86;cga;pc-speaker;star-trek;interactive-fiction;retro;games</PackageTags>
   </PropertyGroup>
