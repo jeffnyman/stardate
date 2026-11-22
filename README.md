@@ -30,6 +30,10 @@ All three are included, by permission of their copyright holders (see [NOTICE.md
 
 ## Playing
 
+### Download
+
+The [releases](https://github.com/jeffnyman/stardate/releases) have Stardate ready to run, with the included games, for Windows, Linux and macOS. Unpack the download for your computer and run `stardate` in it (`stardate.exe` on Windows). A menu lists the games: pick one with the arrow keys and Enter. The programs aren't signed, so Windows and macOS ask before running them the first time; each release's notes say how to let them.
+
 ### From the source
 
 With the [.NET 10 SDK](https://dotnet.microsoft.com/download):
