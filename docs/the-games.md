@@ -17,6 +17,8 @@ What they needed that Confederation didn't have:
 
 `ST.EXE`, built with Amber Systems' tools, and nine overlay and data files, `ST.1` to `ST.9`, which it reads in pieces: it opens itself as a file and reads its overlay from its own end. This is the PC's version 2.0. `START` is a saved game in the game's own format (it begins `st2.0-B`, as the game's saves do), but a new game doesn't read it: it opens only `ST.EXE` and its overlays. The game opens on Starfleet's orders, a pause, and then the bridge, in windows drawn with the PC's box characters over a starfield, with Kirk's command line and the Enterprise's status at the foot of the screen. Orders are typed; the F-keys open menus for what Kirk carries and does.
 
+Its saves work as the reference card says: F10 opens the Utilities, where F3 saves and F4 restores. Spock asks for a formatted diskette, then a file's name, then for the program disk back; with no diskettes to change, each request only wants a key. The save is a file of that name, about 4 KB, beginning `st2.0-B`, in the game's save folder, and F4 with the same name brings the game back as it was.
+
 ## The Promethean Prophecy (1986)
 
 Written in MVP-FORTH by TRANS Fiction Systems, and sold as a disk that started itself, without DOS. What's here is that disk as an image, `STPP.DAT`, with a launcher written in 2004, `RUN.COM`, that loads the game from the image into memory, takes over INT 11h and INT 20h for the game's own use, and sends the game's disk reads and writes to the image: drive A to `STPP.DAT`, drive B to `SAVE.DAT`, a blank image for saved games. Its notes say it needs memory from 0FC0:0000 to 3000:0000 free, because the game uses fixed addresses there; Stardate's DOS starts its arena at 0A00h, and the launcher loads at 0A05h, below that, so it's free. The launcher uses the 386's 32-bit registers (`66h` prefixes) and `PUSHA`, which is one reason the processor stays a 386.
@@ -28,6 +30,8 @@ It saves to drive B, so a save lands in `SAVE.DAT`, which Stardate copies to the
 ## First Contact (1987)
 
 `ST.EXE`, built with Microsoft C 1986 and Amber Systems' tools, with its text and tables in `ST.*` files and twenty CGA pictures in `.BIN` files. It keeps a log of the mission in `ST.LOG`, which it deletes and writes afresh; the copy that came with the game files, from a 2019 session, was left out of the repository. It opens with a pause, then its title picture in graphics, then its credits, each up for a second or two by the clock (it reads DOS's time, and works the seconds out with the C library's long arithmetic) over an animated starfield, and then the bridge, laid out as *The Kobayashi Alternative*'s is. It's the same engine as that game's, from the same developer, but played differently: what's typed is said aloud to whoever is there, and what Kirk himself does (taking, using, giving) is chosen from the F-key menus. It shows each of its pictures and waits in the BIOS for a key. When the mission ends, won or lost, it returns to DOS with exit code 240.
+
+Its saves are *The Kobayashi Alternative*'s, from the same Utilities (F10, then F3 to save and F4 to restore), but for a game on a hard disk: F5 in the Utilities chooses the drive saves go to, C: to begin with, and there are no diskettes to ask for, only the file's name. A save, about 47 KB, beginning `st3.0-B`, carries the mission's log with it, and a restore writes `ST.LOG` back from it.
 
 ## The speed
 
