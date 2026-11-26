@@ -15,7 +15,7 @@ The **core** is the PC: CPU, memory, devices, the DOS layer. It takes input as m
 
 The **player** wraps the core in a real program, using SDL3 for the window, audio and input as Retrograde does.
 
-The player has tests of its own, for what it decides rather than what it shows: its settings, the games' short names, and the command line run end to end with a stand-in program in place of a game ([profiles and the menu](profiles-and-the-menu.md#checking-it)).
+The player has tests of its own, for what it decides rather than what it shows: its settings, the games' short names, and the command line run end to end with a stand-in program in place of a game.
 
 A third program, in `tools/Stardate.Driver`, uses the core with no window at all: it plays the games from scripts, to check the walkthroughs, and looks inside them as they play ([tools/README.md](../tools/README.md)). It has tests of its own, in `tests/Stardate.Driver.Tests`.
 
@@ -48,7 +48,7 @@ The processor's single-step tests need the 80386 suite, which is large and stays
 
 ## Releases
 
-Stardate is for people who want to see the original games, not only for developers, so a release is something to download and run, with no .NET to install. `.github/workflows/publish.yml` builds one for each of Windows, Linux, and macOS on Apple silicon and on Intel. A tag such as `v0.1.0` makes a GitHub release of them, with `.github/release-notes.md` as its notes; a version with a hyphen, such as `v0.1.0-alpha`, is a prerelease. Run by hand, the workflow only builds the downloads, as the run's artifacts, to try one before tagging.
+Stardate is for people who want to see the original games, not only for developers, so a release is something to download and run, with no .NET to install. `.github/workflows/publish.yml` builds one for each of Windows, Linux, and macOS on Apple silicon and on Intel. A tag such as `v1.0.0` makes a GitHub release of them, with `.github/release-notes.md` as its notes; a version with a hyphen, such as `v1.1.0-alpha`, is a prerelease. The version is `Directory.Build.props`'s, and the tag's when there is one, so the two should match. [1.0.0](https://github.com/jeffnyman/stardate/releases/tag/v1.0.0) was the first. Run by hand, the workflow only builds the downloads, as the run's artifacts, to try one before tagging.
 
 Each download is a folder:
 
@@ -56,4 +56,4 @@ Each download is a folder:
 - **`games/`**, the included games, with their notice, which the build copies beside the player and the player plays from.
 - **`README.md`**, **`NOTICE.md`** and **`LICENSE`**.
 
-The programs aren't signed, so Windows and macOS ask before running them the first time; the release notes say how to let them. (Not yet tried for Stardate: these workflows came over from Confederation renamed, and haven't run.)
+The programs aren't signed, so Windows and macOS ask before running them the first time; the release notes say how to let them.

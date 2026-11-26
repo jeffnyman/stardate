@@ -15,7 +15,7 @@ What they needed that Confederation didn't have:
 
 ## The Kobayashi Alternative (1985)
 
-`ST.EXE`, built with Amber Systems' tools, and nine overlay and data files, `ST.1` to `ST.9`, which it reads in pieces: it opens itself as a file and reads its overlay from its own end. `START` is a saved game in the game's own format (it begins `st2.0-B`, as the game's saves do); `start` is among the program's strings, so it's likely where a new game begins, though that's yet to be checked. The game opens on Starfleet's orders, a pause, and then the bridge, in windows drawn with the PC's box characters over a starfield, with Kirk's command line and the Enterprise's status at the foot of the screen.
+`ST.EXE`, built with Amber Systems' tools, and nine overlay and data files, `ST.1` to `ST.9`, which it reads in pieces: it opens itself as a file and reads its overlay from its own end. This is the PC's version 2.0. `START` is a saved game in the game's own format (it begins `st2.0-B`, as the game's saves do), but a new game doesn't read it: it opens only `ST.EXE` and its overlays. The game opens on Starfleet's orders, a pause, and then the bridge, in windows drawn with the PC's box characters over a starfield, with Kirk's command line and the Enterprise's status at the foot of the screen. Orders are typed; the F-keys open menus for what Kirk carries and does.
 
 ## The Promethean Prophecy (1986)
 
@@ -23,9 +23,11 @@ Written in MVP-FORTH by TRANS Fiction Systems, and sold as a disk that started i
 
 The game runs in mode 2, the CGA's "black and white" 80-column text. That mode only turned off the color signal for a composite monitor or television; on IBM's own color display, which took the colors directly, it was in color like mode 3, and the game uses color in it (its window titles are blue and red). Stardate draws it in color.
 
+It saves to drive B, so a save lands in `SAVE.DAT`, which Stardate copies to the game's save folder the first time it's written. The launcher opens it once and never closes it, which DOS allowed: what's written reaches the disk as it's written. Stardate's DOS first kept writes in .NET's file buffer until a file was closed, so a save's last block was lost when the player quit, and the save hung when it was restored. Writes now go to the disk at once.
+
 ## First Contact (1987)
 
-`ST.EXE`, built with Microsoft C 1986 and Amber Systems' tools, with its text and tables in `ST.*` files and twenty CGA pictures in `.BIN` files. It keeps a log of the mission in `ST.LOG`, which it deletes and writes afresh; the copy that came with the game files, from a 2019 session, was left out of the repository. It opens with a pause, then its title picture in graphics, then its credits, each up for a second or two by the clock (it reads DOS's time, and works the seconds out with the C library's long arithmetic) over an animated starfield, and then the bridge, laid out as *The Kobayashi Alternative*'s is.
+`ST.EXE`, built with Microsoft C 1986 and Amber Systems' tools, with its text and tables in `ST.*` files and twenty CGA pictures in `.BIN` files. It keeps a log of the mission in `ST.LOG`, which it deletes and writes afresh; the copy that came with the game files, from a 2019 session, was left out of the repository. It opens with a pause, then its title picture in graphics, then its credits, each up for a second or two by the clock (it reads DOS's time, and works the seconds out with the C library's long arithmetic) over an animated starfield, and then the bridge, laid out as *The Kobayashi Alternative*'s is. It's the same engine as that game's, from the same developer, but played differently: what's typed is said aloud to whoever is there, and what Kirk himself does (taking, using, giving) is chosen from the F-key menus. It shows each of its pictures and waits in the BIOS for a key. When the mission ends, won or lost, it returns to DOS with exit code 240.
 
 ## The speed
 
