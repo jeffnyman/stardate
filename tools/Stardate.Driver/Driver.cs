@@ -124,12 +124,14 @@ internal sealed partial class Driver
     public bool KeyboardBufferEmpty() => Machine.Read(0x41A) == Machine.Read(0x41C);
 
     /// <summary>
-    /// Waits until the game is ready for a key, for at most so many seconds; a "press a key"
-    /// pause is pressed through, unless <see cref="StopAtPauses"/>.
+    /// Waits until the game is ready for a key, for at most so many seconds of the machine's time;
+    /// a "press a key" pause is pressed through, unless <see cref="StopAtPauses"/>.
     /// </summary>
     public void WaitUntilReady(double seconds = 40)
     {
-        for (double waited = 0; waited < seconds && !Machine.Exited;)
+        // the machine's own time, as each look at the screen runs the game for the profile's StillFor
+        var until = Machine.Time + TimeSpan.FromSeconds(seconds);
+        while (Machine.Time < until && !Machine.Exited)
         {
             if (Profile.Paused(this))
             {
@@ -139,7 +141,7 @@ internal sealed partial class Driver
                     return;
                 }
 
-                waited += PressThroughPause();
+                PressThroughPause();
                 continue;
             }
 
@@ -149,7 +151,6 @@ internal sealed partial class Driver
             }
 
             RunSeconds(0.1);
-            waited += 0.15;
         }
 
         if (!Machine.Exited)
